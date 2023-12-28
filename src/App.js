@@ -1,14 +1,19 @@
-
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import SignInForm from './components/user/SignInForm';
 import SignUpForm from './components/user/SignUpForm';
+import {Routes, Route, Link} from 'react-router-dom'
+import Axios from 'axios'
+import {jwtDecode} from 'jwt-decode'
+import AddCarForm from './components/forms/AddCarForm';
 
 function App() {
+  
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser]= useState({});
 
   useEffect(() => {
-    const user = getUser();
+    const user = setUser();
     console.log(user);
 
     if(user){
@@ -72,10 +77,10 @@ function App() {
   }
   return (
     <div className="App">
-       <nav>
-        {isAuth ? 
+      <nav>
+      {isAuth ? 
         (
-            <div>
+              <div>
               <Link to="/">Home</Link> &nbsp;
               <Link to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
             </div>
@@ -90,14 +95,14 @@ function App() {
       }
       </nav>
 
-
       <div>
         <Routes>
-          <Route path='/' element={ isAuth ? <AuthorList></AuthorList> : <Signin login={loginHandler}></Signin>}></Route>
-          <Route path='/signup' element={<Signup register={registerHandler}></Signup>}></Route>
-          <Route path='/signin' element={isAuth ? <AuthorList></AuthorList> : <Signin login={loginHandler}></Signin>}></Route>
+          <Route path='/' element={ isAuth ?  <AddCarForm></AddCarForm>: <SignInForm login={loginHandler}></SignInForm>}></Route>
+          <Route path='/signup' element={<SignUpForm register={registerHandler}></SignUpForm>}></Route>
+          <Route path='/signin' element={isAuth ? <AddCarForm></AddCarForm> : <SignInForm login={loginHandler}></SignInForm>}></Route>
         </Routes>
-    </div>
+      </div>
+
     </div>
   );
 }
