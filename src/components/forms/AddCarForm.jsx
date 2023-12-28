@@ -26,7 +26,7 @@ export default function AddCarForm() {
 
         
         <label>Image of the Car:</label>
-        <input type="multer" name='car_avatar'></input>
+        <input type="file" name="exhibition_image" accept=".png, .jpg, .jpeg, .gif"></input>
 
         <div>
         <input type='submit' value="Add Car" className='btn btn-primary'></input>
