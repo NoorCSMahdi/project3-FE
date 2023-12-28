@@ -9,23 +9,27 @@ export default function AddExhibitionForm() {
     </div>
 
     <form>
-    <label>Name of the Car:</label>
+    <label>Exhibition Name:</label>
     <input type="text" name='car_name'></input>
 
-    <label>Brand of the Car:</label>
+    <label>Description of the Exhibition:</label>
     <input type="text" name='car_company'></input>
 
-    <label>Model of the Car:</label>
-    <input type="text" name='car_model'></input>
+    <label>Business' Contacts:</label>
+    <input type="number" name='exhibition_phoneNumber'></input>
 
-    <label>Assigned Price:</label>
-    <input type="number" name='car_price'></input>
+    <label>Business Email-Address:</label>
+    <input type="email" name='exhibition_emailAddress'></input>
 
-    <label>Car Description:</label>
-    <input type="string" name='car_description'></input>
+    <label>Exhibition Location:</label>
+    <input type="text" name='exhibition_location'></input>
+
+    <label>Upload Exhibition Images:</label>
+    <input type="file" name="exhibition_image" accept=".png, .jpg, .jpeg, .gif"></input>
+  
 
     <div>
-    <input type='submit' value="Add Car" className='btn btn-primary'></input>
+    <input type='submit' value="Create Exhibition" className='btn btn-primary'></input>
 </div>
 </form>
 </div>
