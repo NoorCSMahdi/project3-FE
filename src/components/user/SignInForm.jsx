@@ -24,12 +24,12 @@ export default function SignInForm(props) {
 <form onSubmit={loginHandler}>
     <div>
         <label>Email Address</label>
-        <input type='email' name='emailAddress' onChange={handleChange} className='form-control'></input>
+        <input type='email' name='user_emailAddress' onChange={handleChange} className='form-control'></input>
     </div>
 
     <div>
         <label>Password</label>
-        <input type='password' name='password' onChange={handleChange} className='form-control'></input>
+        <input type='password' name='user_password' onChange={handleChange} className='form-control'></input>
     </div>
 
     <div>

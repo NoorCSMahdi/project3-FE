@@ -23,25 +23,30 @@ export default function SignUpForm(props) {
 
 <form onSubmit={registerHandler}>
     <div>
-        <label>First Name</label>
-        <input type='text' name='firstName' onChange={handleChange} className='form-control'></input>
+        <label>Full Name</label>
+        <input type='text' name='user_fullName' onChange={handleChange} className='form-control'></input>
     </div>
 
     <div>
-        <label>Last Name</label>
-        <input type='text' name='lastName' onChange={handleChange} className='form-control'></input>
+        <label>Phone Number</label>
+        <input type='text' name='user_phoneNumber' onChange={handleChange} className='form-control'></input>
     </div>
 
     <div>
         <label>Email Address</label>
-        <input type='email' name='emailAddress' onChange={handleChange} className='form-control'></input>
+        <input type='email' name='user_emailAddress' onChange={handleChange} className='form-control'></input>
     </div>
 
     <div>
         <label>Password</label>
-        <input type='password' name='password' onChange={handleChange} className='form-control'></input>
+        <input type='password' name='user_password' onChange={handleChange} className='form-control'></input>
     </div>
 
+    <div>
+    <label>Profile Picture:</label>
+        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange}></input>
+    </div>
+    
     <div>
         <input type='submit' value='Register' className='btn btn-primary'></input>
     </div>

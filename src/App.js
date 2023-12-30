@@ -6,6 +6,7 @@ import {Routes, Route, Link} from 'react-router-dom'
 import Axios from 'axios'
 import {jwtDecode} from 'jwt-decode'
 import AddCarForm from './components/forms/AddCarForm';
+import AddExhibitionForm from './components/forms/AddExhibitionForm';
 
 function App() {
   
@@ -77,8 +78,8 @@ function App() {
   }
   return (
     <div className="App">
-      <nav>
-      {isAuth ? 
+<nav>
+        {isAuth ? 
         (
               <div>
               <Link to="/">Home</Link> &nbsp;
@@ -95,9 +96,10 @@ function App() {
       }
       </nav>
 
+
       <div>
         <Routes>
-          <Route path='/' element={ isAuth ?  <AddCarForm></AddCarForm>: <SignInForm login={loginHandler}></SignInForm>}></Route>
+          <Route path='/' element={ isAuth ? <AddCarForm></AddCarForm> : <SignInForm login={loginHandler}></SignInForm>}></Route>
           <Route path='/signup' element={<SignUpForm register={registerHandler}></SignUpForm>}></Route>
           <Route path='/signin' element={isAuth ? <AddCarForm></AddCarForm> : <SignInForm login={loginHandler}></SignInForm>}></Route>
         </Routes>
