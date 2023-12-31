@@ -36,6 +36,9 @@ export default function AddCarForm(props) {
         <label>Model of the Car:</label>
         <input type="text" name='car_model' onChange={handleChange}></input>
 
+        <label>Type of Car</label>
+        
+
         <label>Assigned Price:</label>
         <input type="number" name='car_price' onChange={handleChange}></input>
 
