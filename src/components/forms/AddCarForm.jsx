@@ -1,58 +1,128 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Axios from 'axios';
 
 export default function AddCarForm(props) {
-  const [newCar, setNewCar]= useState({});
+  const [newCar, setNewCar] = useState({});
 
-    const handleChange= (event)=>{
-        const attributeToChange = event.target.name;
-        const newValue = event.target.value;
+  const addCar = (car) => {
+    Axios.post('car/add', car)
+      .then((res) => {
+        console.log('Car Added successfully!!!');
+      })
+      .catch((err) => {
+        console.log('Error adding Car');
+      });
+  };
 
-        const car = {...newCar}
-        car[attributeToChange] = newValue;
-        console.log(car);
-        setNewCar(car);
+  const handleChange = (event) => {
+    const attributeToChange = event.target.name;
+    const newValue = event.target.value;
 
-    }
+    const car = { ...newCar };
+    car[attributeToChange] = newValue;
+    console.log(car);
+    setNewCar(car);
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        props.addCar(newCar);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addCar(newCar);
+  };
 
   return (
-    <div>
-        <div>
+    <div className="container">
+      <div className="mb-4">
         <h2>Additional Car</h2>
-        <p>Present A Car To Your Exhibition!</p>
+        <p>Present A Car To Your Car!</p>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="car_name" className="form-label">
+            Name of the Car:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="car_name"
+            name="car_name"
+            onChange={handleChange}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-        <label>Name of the Car:</label>
-        <input type="text" name='car_name' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="car_company" className="form-label">
+            Brand of the Car:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="car_company"
+            name="car_company"
+            onChange={handleChange}
+          />
+        </div>
 
-        <label>Brand of the Car:</label>
-        <input type="text" name='car_company' onChange={handleChange}></input>
-
-        <label>Model of the Car:</label>
-        <input type="text" name='car_model' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="car_model" className="form-label">
+            Model of the Car:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="car_model"
+            name="car_model"
+            onChange={handleChange}
+          />
+        </div>
 
         <label>Type of Car</label>
         
 
-        <label>Assigned Price:</label>
-        <input type="number" name='car_price' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="car_price" className="form-label">
+            Assigned Price:
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="car_price"
+            name="car_price"
+            onChange={handleChange}
+          />
+        </div>
 
-        <label>Car Description:</label>
-        <input type="string" name='car_description' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="car_description" className="form-label">
+            Car Description:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="car_description"
+            name="car_description"
+            onChange={handleChange}
+          />
+        </div>
 
-        
-        <label>Image of the Car:</label>
-        <input type="file" name="exhibition_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="car_image" className="form-label">
+            Image of the Car:
+          </label>
+          <input
+            type="file"
+            className="form-control"
+            id="car_image"
+            name="car_image"
+            accept=".png, .jpg, .jpeg, .gif"
+            onChange={handleChange}
+          />
+        </div>
 
-        <div>
-        <input type='submit' value="Add Car" className='btn btn-primary'></input>
+        <div className="mb-3">
+          <input type="submit" value="Add Car" className="btn btn-primary" />
+        </div>
+      </form>
     </div>
-    </form>
-    </div>
-  )
+  );
 }
