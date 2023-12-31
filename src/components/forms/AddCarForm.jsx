@@ -76,6 +76,9 @@ export default function AddCarForm(props) {
           />
         </div>
 
+        <label>Type of Car</label>
+        
+
         <div className="mb-3">
           <label htmlFor="car_price" className="form-label">
             Assigned Price:
