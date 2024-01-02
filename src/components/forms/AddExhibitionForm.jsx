@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+// import 'leaflet/dist/leaflet.css';
 
 export default function AddExhibitionForm(props) {
   const [newExhibition, setNewExhibition] = useState({});
