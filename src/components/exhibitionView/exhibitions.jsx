@@ -22,7 +22,7 @@ function ExhibitionPage() {
         {exhibitions.map(exhibition => (
           <div key={exhibition._id} className="col mb-4">
             <div className="card">
-              <img src={exhibition.exhibition_image} className="card-img-top" alt={exhibition.exhibition_name} />
+              <img src={exhibition.exhibition_image} className="card-img-top" style={{width:"20px"}} alt={exhibition.exhibition_name} />
               <div className="card-body">
                 <h2 className="card-title">{exhibition.exhibition_name}</h2>
                 <p className="card-text">{exhibition.exhibition_description}</p>
