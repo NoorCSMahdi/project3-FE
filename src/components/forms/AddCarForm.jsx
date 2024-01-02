@@ -41,7 +41,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_name" className="form-label">
             Name of the Car:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="car_name"
@@ -54,7 +54,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_company" className="form-label">
             Brand of the Car:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="car_company"
@@ -67,7 +67,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_model" className="form-label">
             Model of the Car:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="car_model"
@@ -83,7 +83,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_price" className="form-label">
             Assigned Price:
           </label>
-          <input
+          <input required
             type="number"
             className="form-control"
             id="car_price"
@@ -96,7 +96,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_description" className="form-label">
             Car Description:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="car_description"
@@ -109,7 +109,7 @@ export default function AddCarForm(props) {
           <label htmlFor="car_image" className="form-label">
             Image of the Car:
           </label>
-          <input
+          <input required
             type="file"
             className="form-control"
             id="car_image"

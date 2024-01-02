@@ -7,6 +7,9 @@ export default function AddExhibitionForm(props) {
   const [newExhibition, setNewExhibition] = useState({});
   const [destination, setDestination] = useState(null);
   const autocompleteRef = useRef(null);
+  const [file, setFile] = useState()
+  const [imageName, setImageName] = useState()
+
 
   const addExhibition = (exhibition) => {
     Axios.post('exhibition/add', exhibition)
@@ -17,6 +20,11 @@ export default function AddExhibitionForm(props) {
         console.log('Error adding Exhibition');
       });
   };
+
+  const handleImage = (e) => {
+    console.log(e.target.files[0])
+    setFile(e.target.files[0])
+  }
 
   const handleChange = (event) => {
     const attributeToChange = event.target.name;
@@ -48,10 +56,22 @@ export default function AddExhibitionForm(props) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    addExhibition(newExhibition);
+    const formData = new FormData()
+    formData.append("exhibition_image", file)
+    formData.append("exhibition_name", newExhibition.exhibition_name)
+    formData.append("exhibition_description", newExhibition.exhibition_description)
+    formData.append("exhibition_phoneNumber", newExhibition.exhibition_phoneNumber)
+    formData.append("exhibition_emailAddress", newExhibition.exhibition_emailAddress)
+    formData.append("exhibition_location", newExhibition.exhibition_location)
+    formData.append("working_days", newExhibition.working_days)
+    
+  const result = await Axios.post('/exhibition/add', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+    setImageName(result.data.imageName)
+    // addExhibition(newExhibition);
   };
+
 
   return (
     <div className="container">
@@ -65,7 +85,7 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_name" className="form-label">
             Exhibition Name:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="exhibition_name"
@@ -78,7 +98,7 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_description" className="form-label">
             Description of the Exhibition:
           </label>
-          <input
+          <input required
             type="text"
             className="form-control"
             id="exhibition_description"
@@ -91,8 +111,8 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_phoneNumber" className="form-label">
             Business' Contacts:
           </label>
-          <input
-            type="number"
+          <input required
+            type="text"
             className="form-control"
             id="exhibition_phoneNumber"
             name="exhibition_phoneNumber"
@@ -104,7 +124,7 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_emailAddress" className="form-label">
             Business Email-Address:
           </label>
-          <input
+          <input required
             type="email"
             className="form-control"
             id="exhibition_emailAddress"
@@ -129,19 +149,32 @@ export default function AddExhibitionForm(props) {
           <button onClick={fetchCurrentLocation}>Get Current Location</button>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="exhibition_image" className="form-label">
-            Upload Exhibition Images:
-          </label>
-          <input
-            type="file"
-            className="form-control"
-            id="exhibition_image"
-            name="exhibition_image"
-            accept=".png, .jpg, .jpeg, .gif"
-            onChange={handleChange}
-          />
-        </div>
+    <div className="mb-3">
+      <label htmlFor="exhibition_image" className="form-label">
+        Upload Exhibition Images:
+      </label>
+      <input required
+        type="file"
+        className="form-control"
+        id="exhibition_image"
+        name="exhibition_image"
+        accept=".png, .jpg, .jpeg, .gif"
+        onChange={handleImage}
+      />
+    </div>
+
+    <div className="mb-3">
+      <label htmlFor="working_days" className="form-label">
+        Working Days:
+      </label>
+      <input required
+        type="date"
+        className="form-control"
+        id="working_days"
+        name="working_days"
+        onChange={handleChange}
+      />
+    </div>
 
         <div className="mb-3">
           <input type="submit" value="Create Exhibition" className="btn btn-primary" />
