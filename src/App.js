@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import './App.css';
 import SignInForm from './components/user/SignInForm';
 import SignUpForm from './components/user/SignUpForm';
-import { Routes, Route, Link } from 'react-router-dom';
-import Axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import {Routes, Route, Link} from 'react-router-dom'
+import Axios from 'axios'
+import {jwtDecode} from 'jwt-decode'
 import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
@@ -14,88 +14,83 @@ import  ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitio
 import RequestList from './components/adminView/RequestList';
 
 function App() {
+  
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser]= useState({});
 
   useEffect(() => {
     const user = setUser();
     console.log(user);
 
-    if (user) {
+    if(user){
       setIsAuth(true);
       setUser(user);
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       setIsAuth(false);
       setUser(null);
     }
-  }, []);
-
+  }, [])
+  
   const registerHandler = (user) => {
-    Axios.post('auth/signup', user)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    Axios.post("auth/signup", user)
+    .then(res => {
+      console.log(res)
+    })
+
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   const loginHandler = (cred) => {
-    Axios.post('auth/signin', cred)
-      .then((res) => {
-        console.log(res.data.token);
+    Axios.post("auth/signin", cred)
+    .then(res => {
+      console.log(res.data.token);
 
-        //Makes sure the token is Valid
-        let token = res.data.token;
+      //Makes sure the token is Valid
+      let token = res.data.token;
 
-        if (token != null) {
-          localStorage.setItem('token', token);
-          const user = getUser();
-          console.log(user);
-          user ? setIsAuth(true) : setIsAuth(false);
-          user ? setUser(user) : setUser(null);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+      if(token != null){
+        localStorage.setItem("token", token);
+        const user = getUser();
+        console.log(user);
+        user ? setIsAuth(true): setIsAuth(false)
+        user ? setUser(user): setUser(null)
+      }
+    })
 
-  const getUser = () => {
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const getUser = ()=> {
     const token = getToken();
-    return token ? jwtDecode(token).user : null;
-  };
+    return token ? jwtDecode(token).user : null
+  }
 
-  const getToken = () => {
-    const token = localStorage.getItem('token');
+  const getToken =()=>{
+    const token = localStorage.getItem("token");
     return token;
-  };
+  }
 
-  const onLogoutHandler = (e) => {
+  const onLogoutHandler =(e) => {
     e.preventDefault();
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsAuth(false);
     setUser(null);
-  };
-
-  const addExhibition = (exhibition) => {
-    // Implement the logic to add the exhibition
-    console.log('Adding exhibition:', exhibition);
-  };
-
+  }
   return (
     <div className="App">
+      <AddExhibitionForm></AddExhibitionForm>
       <nav>
         {isAuth ? (
           <div>
             <Link to="/">Home</Link> &nbsp;
             <Link to="/exhibition/add">Exhibition</Link>&nbsp;
             <Link to="/request/add">Submit Request</Link>&nbsp;
-            <Link to="/logout" onClick={onLogoutHandler}>
-              Logout
-            </Link>
-            &nbsp;
+            <Link to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
           </div>
         ) : (
           <div>
@@ -106,6 +101,7 @@ function App() {
           </div>
         )}
       </nav>
+
 
       <div>
         <Routes>
