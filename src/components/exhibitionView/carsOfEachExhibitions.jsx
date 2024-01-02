@@ -3,13 +3,14 @@ import axios from 'axios';
 
 function ExhibitionCarsPage({ exhibitionId }) {
   const [cars, setCars] = useState([]);
-
+exhibitionId="65915f0f35e4ce658ac13cff"
   useEffect(() => {
     // Fetch cars for the specific exhibition
     axios
-      .get(`/api/exhibitions/${exhibitionId}/cars`)
+      .get(`/exhibition/detail?id=${exhibitionId}`)
       .then(response => {
-        setCars(response.data);
+        console.log(response);
+        setCars(response.data.exhibition);
       })
       .catch(error => {
         console.error('Error fetching cars:', error);
@@ -19,17 +20,18 @@ function ExhibitionCarsPage({ exhibitionId }) {
   return (
     <div>
       <h1>Cars for Exhibition</h1>
-      {cars.map(car => (
-        <div key={car._id}>
-          <h2>{car.car_name}</h2>
-          <p>{car.car_description}</p>
-          <p>Company: {car.car_company}</p>
-          <p>Model: {car.car_model}</p>
-          <p>Price: {car.car_price}</p>
-          <img src={car.car_avatar} alt={car.car_name} />
+      {exhibitionId}
+      {/* {cars.map(car => ( */}
+        <div key={cars._id}>
+          <h2>{cars.car_name}</h2>
+          <p>{cars.car_description}</p>
+          <p>Company: {cars.car_company}</p>
+          <p>Model: {cars.car_model}</p>
+          <p>Price: {cars.car_price}</p>
+          <img src={cars.car_avatar} alt={cars.car_name} />
           {/* Display other car information as needed */}
         </div>
-      ))}
+      {/* ))} */}
     </div>
   );
 }
