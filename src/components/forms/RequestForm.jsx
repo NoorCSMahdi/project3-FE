@@ -1,62 +1,97 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Axios from 'axios';
+
 
 export default function RequestForm() {
-    const [newRequest, setNewRequest]= useState({});
+  const [newRequest, setNewRequest] = useState({
+    request_exhibitionName: '',
+    request_message: '',
+    request_CR: '',
+  });
 
-    const handleChange= (event)=>{
-        const attributeToChange = event.target.name;
-        const newValue = event.target.value;
+  const addRequest = (request) => {
+    Axios.post('/request/add', request)
+      .then((res) => {
+        console.log('Request added successfully!');
+        // Handle success response, e.g., show a success message
+      })
+      .catch((error) => {
+        console.log('Error adding request:', error);
+        // Handle error response, e.g., show an error message
+      });
+  };
 
-        const car = {...newRequest}
-        car[attributeToChange] = newValue;
-        console.log(car);
-        setNewCar(car);
+  const handleChange = (event) => {
+    const attributeToChange = event.target.name;
+    const newValue = event.target.value;
 
-    }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        props.addCar(newCar);
-    }
+    setNewRequest((prevRequest) => ({
+      ...prevRequest,
+      [attributeToChange]: newValue,
+    }));
+  };
+
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addRequest(newRequest);
+  };
 
   return (
-    <div>
-        <div>
-        <h2>Additional Car</h2>
-        <p>Present A Car To Your Exhibition!</p>
+    <div className="container">
+      <div className="mb-4">
+        <h2>Request Form</h2>
+        <p>Submit Your Request</p>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="request_exhibitionName" className="form-label">
+            Exhibition Name:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="request_exhibitionName"
+            name="request_exhibitionName"
+            value={newRequest.request_exhibitionName}
+            onChange={handleChange}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-        <label>Name of the Car:</label>
-        <input type="text" name='car_name' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="request_message" className="form-label">
+            Message:
+          </label>
+          <textarea
+            className="form-control"
+            id="request_message"
+            name="request_message"
+            value={newRequest.request_message}
+            onChange={handleChange}
+          ></textarea>
+        </div>
 
-        <label>Brand of the Car:</label>
-        <input type="text" name='car_company' onChange={handleChange}></input>
+        <div className="mb-3">
+          <label htmlFor="request_CR" className="form-label">
+            CR:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="request_CR"
+            name="request_CR"
+            value={newRequest.request_CR}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label>Model of the Car:</label>
-        <input type="text" name='car_model' onChange={handleChange}></input>
-
-        <label>Type of Car</label>
-        
-
-        <label>Assigned Price:</label>
-        <input type="number" name='car_price' onChange={handleChange}></input>
-
-        <label>Car Description:</label>
-        <input type="string" name='car_description' onChange={handleChange}></input>
-
-        
-        <label>Image of the Car:</label>
-        <input type="file" name="exhibition_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange}></input>
-
-        <div>
-        <input type='submit' value="Add Car" className='btn btn-primary'></input>
+        <div className="mb-3">
+          <input type="submit" value="Submit Request" className="btn btn-primary" />
+        </div>
+      </form>
     </div>
-    </form>
-    </div>
-  )
+  );
 }
-
-//   request_exhibitionName: String,
-//   request_message: String,
-//   request_CR: String,
