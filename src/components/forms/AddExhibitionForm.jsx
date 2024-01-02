@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+// import 'leaflet/dist/leaflet.css';
 
 export default function AddExhibitionForm(props) {
   const [newExhibition, setNewExhibition] = useState({});
@@ -137,7 +137,7 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_location" className="form-label">
             Exhibition Location:
           </label>
-          <MapContainer
+          {/* <MapContainer
             center={destination || [latitude, longitude]} // Replace latitude and longitude with the appropriate values
             zoom={13}
             style={{ height: '400px' }}
@@ -145,7 +145,7 @@ export default function AddExhibitionForm(props) {
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {destination && <Marker position={destination}></Marker>}
-          </MapContainer>
+          </MapContainer> */}
           <button onClick={fetchCurrentLocation}>Get Current Location</button>
         </div>
 
