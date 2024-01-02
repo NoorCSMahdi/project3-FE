@@ -26,11 +26,6 @@ export default function RequestForm() {
     const newValue = event.target.value;
 
 
-  const handleChange = (event) => {
-    const attributeToChange = event.target.name;
-    const newValue = event.target.value;
-
-
     setNewRequest((prevRequest) => ({
       ...prevRequest,
       [attributeToChange]: newValue,
@@ -99,5 +94,4 @@ export default function RequestForm() {
       </form>
     </div>
   );
-}
 }
