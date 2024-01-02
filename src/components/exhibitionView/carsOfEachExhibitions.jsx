@@ -22,15 +22,15 @@ exhibitionId="65915f0f35e4ce658ac13cff"
       <h1>Cars for Exhibition</h1>
       {exhibitionId}
       {/* {cars.map(car => ( */}
-        <div key={cars._id}>
-          <h2>{cars.car_name}</h2>
+        {/* <div key={cars._id}> */}
+          {/* <h2>{cars.car_name}</h2>
           <p>{cars.car_description}</p>
           <p>Company: {cars.car_company}</p>
           <p>Model: {cars.car_model}</p>
           <p>Price: {cars.car_price}</p>
-          <img src={cars.car_avatar} alt={cars.car_name} />
+          <img src={cars.car_avatar} alt={cars.car_name} /> */}
           {/* Display other car information as needed */}
-        </div>
+        {/* </div> */}
       {/* ))} */}
     </div>
   );
