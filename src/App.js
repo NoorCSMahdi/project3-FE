@@ -11,6 +11,7 @@ import BookingForm from './components/forms/BookingForm';
 import RequestForm from './components/forms/RequestForm';
 import ExhibitionPage from './components/exhibitionView/exhibitions';
 import  ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
+import RequestList from './components/adminView/RequestList';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -120,6 +121,7 @@ function App() {
       <RequestForm/>
       <ExhibitionPage/>
       <ExhibitionCarsPage/>
+      <RequestList/>
   
     </div>
   );
