@@ -9,6 +9,8 @@ import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
 import RequestForm from './components/forms/RequestForm';
+import ExhibitionPage from './components/exhibitionView/exhibitions';
+import  ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -115,6 +117,9 @@ function App() {
         </Routes>
       </div>
      
+      <RequestForm/>
+      <ExhibitionPage/>
+      <ExhibitionCarsPage/>
   
     </div>
   );
