@@ -16,11 +16,11 @@ export default function RequestList() {
 
     useEffect(() => {
     //Call API
-    loadRequestList()
+    loadRequestList();
     }, [])
     
     const loadRequestList =()=> {
-        Axios.get("request/index")
+        Axios.get("/request/index")
         .then((response)=> {
             console.log(response)
             setRequests(response.data.requests)
@@ -73,9 +73,22 @@ export default function RequestList() {
             console.log(err);
         })
     }
+    const approveRequest = (id) => {
 
+        Axios.get(`/request/delete?id=${id}`, requestHeader)
+        .then(res => {
+            console.log("Record Deleted");
+            console.log(res);
+            loadRequestList();
+        })
+
+        .catch(err=>{
+            console.log("Approve Delete Error has been detected! FIX IT");
+            console.log(err);
+        })
+    }
     const deleteRequest = (id) => {
-        Axios.get(`request/delete?id=${id}`, requestHeader)
+        Axios.get(`/request/delete?id=${id}`, requestHeader)
         .then(res => {
             console.log("Record Deleted");
             console.log(res);
@@ -87,9 +100,10 @@ export default function RequestList() {
             console.log(err);
         })
     }
+    console.log("--------------" + requests);
     const allrequests = requests.map((request, index)=> (
         <tr key={index}>
-            <Request {...request} editView={editView} deleteRequest={deleteRequest} />
+            <Request {...request} editView={editView} deleteRequest={deleteRequest} approveRequest={approveRequest} />
         </tr>
     ))
   return (
@@ -99,20 +113,21 @@ export default function RequestList() {
         <table className='table table-striped'>
             <tbody>
             <tr>
+            <th>User Account</th>
                 <th>Exhibition Name</th>
                 <th>Reason Of Request</th>
                 <th>Request CR</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Approve</th>
+                <th>Decline</th>
+                
             </tr>
             {allrequests}
             </tbody>
         </table>
 
        </div>
-       (!isEdit) ?
-       <RequestForm addRequest = {addRequest}></RequestForm>
        
         </div>
   )
 }
+

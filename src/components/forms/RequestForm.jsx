@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 
 
-export default function RequestForm() {
+export default function RequestForm(props) {
+  const [user, setUser]= useState(props.user);
+
+  console.log(props)
+
   const [newRequest, setNewRequest] = useState({
     request_exhibitionName: '',
     request_message: '',
@@ -29,7 +33,11 @@ export default function RequestForm() {
     setNewRequest((prevRequest) => ({
       ...prevRequest,
       [attributeToChange]: newValue,
+      "User": user.id,
     }));
+
+
+    console.log(newRequest)
   };
 
 
@@ -87,6 +95,8 @@ export default function RequestForm() {
             onChange={handleChange}
           />
         </div>
+
+            <input type='hidden' name='userId' value={user._id} onChange={handleChange}/>
 
         <div className="mb-3">
           <input type="submit" value="Submit Request" className="btn btn-primary" />
