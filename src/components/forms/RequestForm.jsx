@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
+
 export default function RequestForm() {
   const [newRequest, setNewRequest] = useState({
     request_exhibitionName: '',
@@ -24,11 +25,14 @@ export default function RequestForm() {
     const attributeToChange = event.target.name;
     const newValue = event.target.value;
 
+
     setNewRequest((prevRequest) => ({
       ...prevRequest,
       [attributeToChange]: newValue,
     }));
   };
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
