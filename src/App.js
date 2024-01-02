@@ -9,13 +9,16 @@ import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
 import RequestForm from './components/forms/RequestForm';
-import ExhibitionPage from './components/exhibitionView/exhibitions';
-import  ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
+import ExhibitionPage from './components/exhibitionView/Exhibitions';
+import ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
+import RequestList from './components/adminView/RequestList';
+// import { Exhibition } from '../../Voiture/models/Exhibition';
 
 function App() {
   
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser]= useState({});
+
 
   useEffect(() => {
     const user = setUser();
@@ -80,21 +83,22 @@ function App() {
     setIsAuth(false);
     setUser(null);
   }
+
   return (
     <div className="App">
-      <AddExhibitionForm></AddExhibitionForm>
       <nav>
         {isAuth ? (
           <div>
             <Link to="/">Home</Link> &nbsp;
-            <Link to="/exhibition/add">Exhibition</Link>&nbsp;
+            <Link to="/exhibition/index">Exhibition</Link>&nbsp;
             <Link to="/request/add">Submit Request</Link>&nbsp;
+            <Link to="/request/index"> Request List</Link>&nbsp;
             <Link to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
           </div>
         ) : (
           <div>
             <Link to="/">Home</Link> &nbsp;
-            <Link to="/exhibition/add">Exhibition</Link>&nbsp;
+            <Link to="/exhibition/index">Exhibition</Link>&nbsp;
             <Link to="/signup">Sign Up</Link> &nbsp;
             <Link to="/signin">Sign In</Link> &nbsp;
           </div>
@@ -105,17 +109,19 @@ function App() {
       <div>
         <Routes>
           <Route path="/" />
-          <Route path='/exhibition/add' element={<AddExhibitionForm></AddExhibitionForm>} />
+          <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
           <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
           <Route path="/signin" element={isAuth ? ( <AddCarForm />) : (<SignInForm login={loginHandler} /> )}/>
         {/* Add car acting as homepage in this scenario */}
-        <Route path="/request/add" element={<RequestForm></RequestForm>} />
+        <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
+        <Route path='/request/index' element={<RequestList></RequestList>} />
+        {/* <Route path='' element={} /> */}
+         {/* <Route path='' element={} /> */}
+          {/* <Route path='' element={} /> */}
         </Routes>
       </div>
      
-      <RequestForm/>
-      <ExhibitionPage/>
-      <ExhibitionCarsPage/>
+     
   
     </div>
   );
