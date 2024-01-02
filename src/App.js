@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
+import RequestForm from './components/forms/RequestForm';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -86,14 +87,17 @@ function App() {
         {isAuth ? (
           <div>
             <Link to="/">Home</Link> &nbsp;
+            <Link to="/exhibition/add">Exhibition</Link>&nbsp;
+            <Link to="/request/add">Submit Request</Link>&nbsp;
             <Link to="/logout" onClick={onLogoutHandler}>
               Logout
-            </Link>{' '}
+            </Link>
             &nbsp;
           </div>
         ) : (
           <div>
             <Link to="/">Home</Link> &nbsp;
+            <Link to="/exhibition/add">Exhibition</Link>&nbsp;
             <Link to="/signup">Sign Up</Link> &nbsp;
             <Link to="/signin">Sign In</Link> &nbsp;
           </div>
@@ -102,36 +106,16 @@ function App() {
 
       <div>
         <Routes>
-          <Route
-            path="/"
-            element={
-              isAuth ? (
-                <AddCarForm />
-              ) : (
-                <SignInForm login={loginHandler} />
-              )
-            }
-          />
-          <Route
-            path="/signup"
-            element={<SignUpForm register={registerHandler} />}
-          />
-          <Route
-            path="/signin"
-            element={
-              isAuth ? (
-                <AddCarForm />
-              ) : (
-                <SignInForm login={loginHandler} />
-              )
-            }
-          />
+          <Route path="/" />
+          <Route path='/exhibition/add' element={<AddExhibitionForm></AddExhibitionForm>} />
+          <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
+          <Route path="/signin" element={isAuth ? ( <AddCarForm />) : (<SignInForm login={loginHandler} /> )}/>
+        {/* Add car acting as homepage in this scenario */}
+        <Route path="/request/add" element={<RequestForm></RequestForm>} />
         </Routes>
       </div>
      
-      <AddExhibitionForm addExhibition={addExhibition} />
-      <AddCarForm />
-    
+  
     </div>
   );
 }
