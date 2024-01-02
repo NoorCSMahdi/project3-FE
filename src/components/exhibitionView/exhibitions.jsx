@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 
 function ExhibitionPage() {
   const [exhibitions, setExhibitions] = useState([]);
 
   useEffect(() => {
     // Fetch exhibitions from the API
-    axios.get('/exhibition/index')
+    Axios.get('/exhibition/index')
       .then(response => {
         setExhibitions(response.data.exhibitions);
       })
