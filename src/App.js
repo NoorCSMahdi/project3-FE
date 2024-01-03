@@ -9,7 +9,7 @@ import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
 import RequestForm from './components/forms/RequestForm';
-import ExhibitionPage from './components/exhibitionView/Exhibitions';
+import ExhibitionPage from './components/exhibitionView/exhibitions';
 import ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
 import RequestList from './components/adminView/RequestList';
 // import { Exhibition } from '../../Voiture/models/Exhibition';
@@ -114,7 +114,7 @@ function App() {
           <Route path="/signin" element={isAuth ? ( <AddCarForm />) : (<SignInForm login={loginHandler} /> )}/>
         {/* Add car acting as homepage in this scenario */}
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
-        <Route path='/request/index' element={<RequestList></RequestList>} />
+        <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
           {/* <Route path='' element={} /> */}
