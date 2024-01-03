@@ -14,6 +14,8 @@ import ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibition
 import RequestList from './components/adminView/RequestList';
 import HomePage from './components/homepage/HomePage';
 import "bootstrap/dist/css/bootstrap.min.css";
+import ReviewForm from './components/review/ReviewForm';
+import UserProfile from './components/profileView/UserProfile';
 
 // import { Exhibition } from '../../Voiture/models/Exhibition';
 
@@ -90,26 +92,31 @@ function App() {
   return (
     <div className="App">
        <div className="px-3 py-2 text-bg-dark border-bottom text-right header">
-      <nav>
-      <div className="container d-flex justify-content-center">
-        {isAuth ? (
-          <div>
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
-            {/* <Link className='nav-link text-white d-inline' to="/request/add">Submit Request</Link>&nbsp; */}
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp;
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
-          </div>
-        ) : (
-          <div>
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signup">Sign Up</Link> &nbsp;
-            <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signin">Sign In</Link> &nbsp;
-          </div>
-        )}
-        </div>
-      </nav>
+       <nav>
+  <div className="container d-inline-flex justify-content-start ms-auto">
+    <Link className='nav-link text-white d-inline me-auto float-start' to="/">
+      <img className='logo' src='voiture-logo-white-transparent.png'/>
+    </Link>
+    {isAuth ? (
+      <div>
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/detail"><img className='profile' src='profile.png'/></Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
+      </div>
+    ) : (
+      <div>
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signup">Sign Up</Link> &nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signin">Sign In</Link> &nbsp;
+      </div>
+    )}
+  </div>
+</nav>
   </div>
 
       <div>
@@ -121,6 +128,8 @@ function App() {
         {/* Add car acting as homepage in this scenario */}
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
         <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
+        <Route path='/review/add' element={<ReviewForm user={user}></ReviewForm>} />
+        <Route path='/user/detail' element={<UserProfile user={user}></UserProfile>} />
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
           {/* <Route path='' element={} /> */}

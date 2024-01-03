@@ -51,6 +51,7 @@
   left: 0;
   width: 100%;
   height: 50px;
+  margin-top: 50px;
 }
 .header{
   height: 50px;
@@ -83,4 +84,19 @@ font-size: 22px;
 .titlep{
 font-family: 'Roboto Mono', sans-serif ;
 color: #69443C;
+}
+
+.carBG{
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.logo{
+  width: auto;
+  height: 15px;
+}
+.profile{
+  width: auto;
+  height: 25px;
 }
