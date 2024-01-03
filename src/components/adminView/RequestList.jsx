@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import RequestForm from '../forms/RequestForm';
 import Request from './Request'
 
-export default function RequestList() {
+export default function RequestList(props) {
+    const [user, setUser]= useState(props.user);
     const [requests, setRequests] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [currentRequest, setCurrentRequest] = useState({});
+    const [userType, setUserType] = useState({
+        userType: 'User',
+    }
+    );
 
     const requestHeader ={
         headers: {
@@ -31,6 +35,13 @@ export default function RequestList() {
    
     }
 
+    const changeUserType = (_id) => {
+        Axios.put('/user/update',{_id,userType: "SubAdmin"})
+        .then(res=> console.log(res))
+        .catch(err => console.log(err))
+        setUserType('SubAdmin');
+      };
+    
     const addRequest = (request) => {
         Axios.post("request/add", request, requestHeader)
         .then( res => {
@@ -50,6 +61,7 @@ export default function RequestList() {
             console.log(res.data.request);
             console.log("Loaded Request Information");
             let request = res.data.request;
+            
             setIsEdit(true);
             setCurrentRequest(request);
         })
@@ -61,7 +73,7 @@ export default function RequestList() {
     }
 
     const updatedRequest = (request) => {
-        Axios.put("request/update", request, requestHeader)
+        Axios.put("/request/update", request, requestHeader)
         .then(res => {
             console.log("Updated Successfully");
             console.log(res);
@@ -73,20 +85,7 @@ export default function RequestList() {
             console.log(err);
         })
     }
-    const approveRequest = (id) => {
 
-        Axios.get(`/request/delete?id=${id}`, requestHeader)
-        .then(res => {
-            console.log("Record Deleted");
-            console.log(res);
-            loadRequestList();
-        })
-
-        .catch(err=>{
-            console.log("Approve Delete Error has been detected! FIX IT");
-            console.log(err);
-        })
-    }
     const deleteRequest = (id) => {
         Axios.get(`/request/delete?id=${id}`, requestHeader)
         .then(res => {
@@ -100,12 +99,13 @@ export default function RequestList() {
             console.log(err);
         })
     }
-    console.log("--------------" + requests);
+
     const allrequests = requests.map((request, index)=> (
         <tr key={index}>
-            <Request {...request} editView={editView} deleteRequest={deleteRequest} approveRequest={approveRequest} />
+            <Request {...request} editView={editView} deleteRequest={deleteRequest} changeUserType={changeUserType}/>
         </tr>
     ))
+    
   return (
     <div>
        <h1>Request List</h1> 
@@ -119,8 +119,10 @@ export default function RequestList() {
                 <th>Request CR</th>
                 <th>Approve</th>
                 <th>Decline</th>
-                
+                <th>Done</th>
+            
             </tr>
+            
             {allrequests}
             </tbody>
         </table>
