@@ -9,9 +9,11 @@ import AddCarForm from './components/forms/AddCarForm';
 import AddExhibitionForm from './components/forms/AddExhibitionForm';
 import BookingForm from './components/forms/BookingForm';
 import RequestForm from './components/forms/RequestForm';
-import ExhibitionPage from './components/exhibitionView/Exhibitions';
+import ExhibitionPage from './components/exhibitionView/exhibitions';
 import ExhibitionCarsPage from './components/exhibitionView/carsOfEachExhibitions'
 import RequestList from './components/adminView/RequestList';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // import { Exhibition } from '../../Voiture/models/Exhibition';
 
 function App() {
@@ -86,25 +88,28 @@ function App() {
 
   return (
     <div className="App">
+       <div className="px-3 py-2 text-bg-dark border-bottom text-right header">
       <nav>
+      <div className="container d-flex justify-content-end">
         {isAuth ? (
           <div>
-            <Link to="/">Home</Link> &nbsp;
-            <Link to="/exhibition/index">Exhibition</Link>&nbsp;
-            <Link to="/request/add">Submit Request</Link>&nbsp;
-            <Link to="/request/index"> Request List</Link>&nbsp;
-            <Link to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
+            <Link className='nav-link text-white d-inline' to="/">Home</Link> &nbsp;
+            <Link className='nav-link text-white d-inline' to="/exhibition/index">Exhibition</Link>&nbsp;
+            <Link className='nav-link text-white d-inline' to="/request/add">Submit Request</Link>&nbsp;
+            <Link className='nav-link text-white d-inline' to="/request/index"> Request List</Link>&nbsp;
+            <Link className='nav-link text-white d-inline' to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
           </div>
         ) : (
           <div>
-            <Link to="/">Home</Link> &nbsp;
-            <Link to="/exhibition/index">Exhibition</Link>&nbsp;
-            <Link to="/signup">Sign Up</Link> &nbsp;
-            <Link to="/signin">Sign In</Link> &nbsp;
+            <Link className='nav-link text-white d-inline' to="/">Home</Link> &nbsp;
+            <Link className='nav-link text-white d-inline' to="/exhibition/index">Exhibition</Link>&nbsp;
+            <Link className='nav-link text-white d-inline' to="/signup">Sign Up</Link> &nbsp;
+            <Link className='nav-link text-white d-inline' to="/signin">Sign In</Link> &nbsp;
           </div>
         )}
+        </div>
       </nav>
-
+  </div>
 
       <div>
         <Routes>
@@ -121,7 +126,11 @@ function App() {
         </Routes>
       </div>
      
-     
+      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
+      <div className="container">
+    <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>
+</div>
+      </footer>
   
     </div>
   );
