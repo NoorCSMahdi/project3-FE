@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Review from '../review/Review'
 
 export default function UserProfile() {
+  // const showReview = () =>{
+    // setReview(
+    //   <Review review={user[currentIndex]}></Review>
+    // )
   return (
     <div className='profilePage'>
       <div className=''>

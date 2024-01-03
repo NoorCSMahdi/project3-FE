@@ -46,3 +46,17 @@
 .header{
   height: 50px;
 }
+.carBG{
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.logo{
+  width: auto;
+  height: 15px;
+}
+.profile{
+  width: auto;
+  height: 25px;
+}
