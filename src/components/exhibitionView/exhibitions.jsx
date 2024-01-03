@@ -19,9 +19,10 @@ function ExhibitionPage(props) {
 
   return (
     <div className="container">
-        {/* <div className="d-flex justify-content-end">
+
+    <div className="d-flex justify-content-end">
     <Link to="/request/add" className="btn btn-secondary mt-3" element={<RequestForm user={user}></RequestForm>} >Request Form</Link>
-  </div> */}
+  </div>
  
       <h1 className="mt-5 mb-4">Exhibitions</h1>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4">
