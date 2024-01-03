@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Import the Link component from react-router-dom
 import Axios from 'axios';
+import RequestForm from '../forms/RequestForm';
 
-function ExhibitionPage() {
+function ExhibitionPage(props) {
   const [exhibitions, setExhibitions] = useState([]);
-
+  const [user, setUser]= useState(props.user);
   useEffect(() => {
     // Fetch exhibitions from the API
     Axios.get('/exhibition/index')
@@ -18,6 +19,10 @@ function ExhibitionPage() {
 
   return (
     <div className="container">
+        {/* <div className="d-flex justify-content-end">
+    <Link to="/request/add" className="btn btn-secondary mt-3" element={<RequestForm user={user}></RequestForm>} >Request Form</Link>
+  </div> */}
+ 
       <h1 className="mt-5 mb-4">Exhibitions</h1>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4">
         {exhibitions.map(exhibition => (
