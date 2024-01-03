@@ -99,7 +99,7 @@ function App() {
       <div>
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
-        <Link className="nav-link text-white d-inline" to="/exhibition/add">Add Exhibition</Link>&nbsp;
+        <Link className="nav-link text-white d-inline" style={{padding:10}} to="/exhibition/add">Add Exhibition</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp;
@@ -128,7 +128,6 @@ function App() {
           <Route path="/exhibition/add" element={<AddExhibitionForm />} />
           <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
           <Route path="/signin" element={isAuth ? ( <HomePage />) : (<SignInForm login={loginHandler} /> )}/>
-        {/* Add car acting as homepage in this scenario */}
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
         <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
         <Route path='/review/add' element={<ReviewForm user={user}></ReviewForm>} />
