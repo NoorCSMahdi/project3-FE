@@ -99,7 +99,7 @@ function App() {
       <div>
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
-        <Link className="nav-link text-white d-inline" to="/exhibition/add">Add Exhibition</Link>&nbsp;
+        <Link className="nav-link text-white d-inline" style={{padding:10}} to="/exhibition/add">Add Exhibition</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp;
