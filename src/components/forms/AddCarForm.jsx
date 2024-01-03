@@ -7,10 +7,14 @@ export default function AddCarForm(props) {
   const addCar = (car) => {
     const exhibitionId = props.exhibitionId; // Get the exhibition ID from props
     car.exhibitionId = exhibitionId; // Add the exhibition ID to the car object
-
-    Axios.post('car/add', car)
+    Axios.post('/car/add', {...car, Exhibition:exhibitionId},{
+      headers:{
+        Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE"
+      }
+    })
       .then((res) => {
         console.log('Car added successfully!');
+        props.showForm(false)
       })
       .catch((err) => {
         console.log('Error adding car');

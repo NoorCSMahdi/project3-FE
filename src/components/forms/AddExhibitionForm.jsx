@@ -1,17 +1,23 @@
 import React, { useState, useRef } from 'react';
 import Axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import Map from './Map';
 
 export default function AddExhibitionForm(props) {
   const [newExhibition, setNewExhibition] = useState({});
+  const [location, setLocation] = useState("");
   const [destination, setDestination] = useState(null);
   const autocompleteRef = useRef(null);
   const [file, setFile] = useState(null);
   const [imageName, setImageName] = useState(null);
 
   const successCallback = (position) => {
-    console.log(position);
+    console.log("coor",position.coords);
+    const newLocation = {
+      latitude:position.coords.latitude,
+      longitude: position.coords.longitude
+    }
+    setLocation(newLocation)
+    console.log("newLocation", newLocation)
   };
   
   const errorCallback = (error) => {
@@ -19,7 +25,7 @@ export default function AddExhibitionForm(props) {
   };
   
   // Move this line inside the component body
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  // navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
   const addExhibition = (exhibition) => {
     Axios.post('exhibition/add', exhibition)
@@ -43,7 +49,7 @@ export default function AddExhibitionForm(props) {
     const exhibition = { ...newExhibition };
     exhibition[attributeToChange] = newValue;
     setNewExhibition(exhibition);
-    console.log(newExhibition);
+    console.log(exhibition);
   };
 
   const handleMapClick = (e) => {
@@ -51,12 +57,13 @@ export default function AddExhibitionForm(props) {
     setDestination(e.latlng);
   };
 
-  const fetchCurrentLocation = () => {
+  const fetchCurrentLocation = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setDestination({ lat: latitude, lng: longitude });
+          console.log(latitude, longitude);
         },
         (error) => {
           console.error('Error getting current location:', error);
@@ -75,8 +82,12 @@ export default function AddExhibitionForm(props) {
     formData.append("exhibition_description", newExhibition.exhibition_description);
     formData.append("exhibition_phoneNumber", newExhibition.exhibition_phoneNumber);
     formData.append("exhibition_emailAddress", newExhibition.exhibition_emailAddress);
-    formData.append("exhibition_location", newExhibition.exhibition_location);
+    formData.append("exhibition_latitude", destination.lat);
+    formData.append("exhibition_longtude", destination.lng);
+    // console.log("newExhibition.exhibition_location", location)
     formData.append("working_days", newExhibition.working_days);
+
+    console.log(formData)
     
     try {
       const result = await Axios.post('/exhibition/add', formData, { headers: {'Content-Type': 'multipart/form-data'}});
@@ -176,15 +187,8 @@ export default function AddExhibitionForm(props) {
           <label htmlFor="exhibition_location" className="form-label">
             Exhibition Location:
           </label>
-          <MapContainer
-            center={destination || [40.7128, -74.0060]} // Replace latitude and longitude with the appropriate values
-            zoom={13}
-            style={{ height: '400px' }}
-            onClick={handleMapClick}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {destination && <Marker position={destination}></Marker>}
-          </MapContainer>
+          <Map destination={destination} key={destination&& destination.lat || 2}/>
+          
           <button type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
         </div>
 
