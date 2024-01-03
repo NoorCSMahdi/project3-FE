@@ -18,40 +18,41 @@ export default function SignUpForm(props) {
     }
 
   return (
-    <div>
-         <h1>Sign-Up</h1>
+    <div className="mx-auto p-5 d-flex justify-content-center">
+  <div className="col-md-6">
+    <h1 className="text-center mb-4">Sign-Up</h1>
 
-<form onSubmit={registerHandler}>
-    <div>
+    <form onSubmit={registerHandler}>
+      <div className="form-group">
         <label>Full Name</label>
-        <input type='text' name='user_fullName' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="text" name="user_fullName" onChange={handleChange} className="form-control" />
+      </div>
 
-    <div>
+      <div className="form-group">
         <label>Phone Number</label>
-        <input type='text' name='user_phoneNumber' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="text" name="user_phoneNumber" onChange={handleChange} className="form-control" />
+      </div>
 
-    <div>
+      <div className="form-group">
         <label>Email Address</label>
-        <input type='email' name='user_emailAddress' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" />
+      </div>
 
-    <div>
+      <div className="form-group">
         <label>Password</label>
-        <input type='password' name='user_password' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="password" name="user_password" onChange={handleChange} className="form-control" style={{marginBottom: 10}}/>
+      </div>
 
-    <div>
-    <label>Profile Picture:</label>
-        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange}></input>
-    </div>
-    
-    <div>
-        <input type='submit' value='Register' className='btn btn-primary'></input>
-    </div>
-</form>
+      <div className="form-group">
+        <label>Profile Picture:</label>
+        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange} style={{marginLeft: 10}}/>
+      </div>
 
-    </div>
+      <div className="text-center">
+        <input type="submit" value="Register" className="btn btn-secondary btn-lg" style={{marginTop: 10}} />
+      </div>
+    </form>
+  </div>
+</div>
   )
 }
