@@ -47,7 +47,7 @@
   height: 50px;
 }
 .carBG{
-  background-image: url("../public/carBG.gif");
+  background-image: url("");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
