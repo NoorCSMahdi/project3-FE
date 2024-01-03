@@ -29,7 +29,7 @@ function ExhibitionPage(props) {
         {exhibitions.map(exhibition => (
           <div key={exhibition._id} className="col mb-4">
             <div className="card">
-              <Link to="/carsOfEachExhibitions"> {/* Add the Link component */}
+              <Link to={"/exhibition/cars/"+exhibition._id}> {/* Add the Link component */}
                 <img src={exhibition.exhibition_image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={exhibition.exhibition_name} />
               </Link>
               <div className="card-body">
