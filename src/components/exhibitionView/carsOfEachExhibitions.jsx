@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link , useParams} from 'react-router-dom';
+import AddCarForm from '../forms/AddCarForm';
 
 function ExhibitionCarsPage( ) {
   const [cars, setCars] = useState([]);
+  const [addCar, setAddCar] = useState(false)
   const [exhibition, setExhibition] = useState([]);
   const { id: exhibitionId } = useParams(); // Get the exhibitionId from the URL parameter
 
@@ -19,28 +21,32 @@ function ExhibitionCarsPage( ) {
       .catch(error => {
         console.error('Error fetching cars:', error);
       });
-  }, [exhibitionId]);
+  }, [exhibitionId, addCar]);
 
   return (
 
-
-<div>
+<div className="container">
   <div className="d-flex justify-content-end mb-3">
-    <Link to="/AddCarForm" className="btn btn-secondary">Add Car</Link>
+    <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
   </div>
-  <h1>Cars for Exhibition</h1>
-  {exhibitionId}
-  {cars.map(car => (
-    <div key={car._id}> {/* Use "car" instead of "cars" */}
-      <h2>{car.car_name}</h2> {/* Use "car" instead of "cars" */}
-      <p>{car.car_description}</p> {/* Use "car" instead of "cars" */}
-      <p>Company: {car.car_company}</p> {/* Use "car" instead of "cars" */}
-      <p>Model: {car.car_model}</p> {/* Use "car" instead of "cars" */}
-      <p>Price: {car.car_price}</p> {/* Use "car" instead of "cars" */}
-      <img src={car.car_avatar} alt={car.car_name} /> {/* Use "car" instead of "cars" */}
-      {/* Display other car information as needed */}
-    </div>
-  ))}
+  <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
+  {addCar ? (
+    <AddCarForm exhibitionId={exhibitionId} showForm={setAddCar} />
+  ) : (
+    cars.map(car => (
+      <div key={car._id} className="card mb-3">
+        <div className="card-body">
+          <h2 className="card-title">{car.car_name}</h2>
+          <p className="card-text">{car.car_description}</p>
+          <p className="card-text">Company: {car.car_company}</p>
+          <p className="card-text">Model: {car.car_model}</p>
+          <p className="card-text">Price: {car.car_price}</p>
+          <img src={car.car_avatar} alt={car.car_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
+        </div>
+      </div>
+    ))
+  )}
+
 </div>
   );
 }

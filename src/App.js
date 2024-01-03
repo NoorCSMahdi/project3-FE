@@ -104,6 +104,13 @@ function App() {
                 &nbsp;
                 <Link
                   className="nav-link text-white d-inline"
+                  to="/exhibition/add"
+                >
+                  Add Exhibition
+                </Link>
+                &nbsp;
+                <Link
+                  className="nav-link text-white d-inline"
                   to="/request/add"
                 >
                   Submit Request
@@ -165,6 +172,7 @@ function App() {
             element={<ExhibitionCarsPage></ExhibitionCarsPage>}
           />
           <Route path="car/add" element={<AddCarForm />} />
+          <Route path="/exhibition/add" element={<AddExhibitionForm />} />
           <Route
             path="/signup"
             element={<SignUpForm register={registerHandler} />}
@@ -190,7 +198,7 @@ function App() {
         </Routes>
       </div>
 
-      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
+      <footer className="px-3 py-2 text-bg-dark mt-5">
         <div className="container">
           <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>
         </div>
