@@ -103,7 +103,7 @@ function App() {
         <Link className='nav-link text-white d-inline' to="/review/add">Review</Link>&nbsp;
         <Link className='nav-link text-white d-inline' to="/request/add">Submit Request</Link>&nbsp;
         <Link className='nav-link text-white d-inline' to="/request/index"> Request List</Link>&nbsp;
-        <Link className='nav-link text-white d-inline' to="/user/detail"><img className='profile' src='profile.png'/></Link>&nbsp;
+        <Link className='nav-link text-white d-inline' to="/user/detail/:id"><img className='profile' src='profile.png'/></Link>&nbsp;
         <Link className='nav-link text-white d-inline' to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
       </div>
     ) : (
@@ -129,7 +129,7 @@ function App() {
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
         <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
         <Route path='/review/add' element={<ReviewForm user={user}></ReviewForm>} />
-        <Route path='/user/detail' element={<UserProfile user={user}></UserProfile>} />
+        <Route path='/user/detail/:id' element={<UserProfile user={user}></UserProfile>} />
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
           {/* <Route path='' element={} /> */}
