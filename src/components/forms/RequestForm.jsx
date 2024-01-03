@@ -96,7 +96,7 @@ export default function RequestForm(props) {
           />
         </div>
 
-            <input type='hidden' name='userId' value={user._id} onChange={handleChange}/>
+            {/* <input type='hidden' name='userId' value={user._id} onChange={handleChange}/> */}
 
         <div className="mb-3">
           <input type="submit" value="Submit Request" className="btn btn-primary" />
