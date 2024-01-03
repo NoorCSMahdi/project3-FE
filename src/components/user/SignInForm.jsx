@@ -18,25 +18,26 @@ export default function SignInForm(props) {
     }
 
   return (
-    <div>
-         <h1>Sign-In</h1>
+    <div className="mx-auto p-5 d-flex justify-content-center">
+  <div className="col-md-6">
+    <h1 className="text-center mb-4">Sign-In</h1>
 
-<form onSubmit={loginHandler}>
-    <div>
+    <form onSubmit={loginHandler}>
+      <div className="form-group">
         <label>Email Address</label>
-        <input type='email' name='user_emailAddress' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" />
+      </div>
 
-    <div>
+      <div className="form-group">
         <label>Password</label>
-        <input type='password' name='user_password' onChange={handleChange} className='form-control'></input>
-    </div>
+        <input type="password" name="user_password" onChange={handleChange} className="form-control" />
+      </div>
 
-    <div>
-        <input type='submit' value='Login' className='btn btn-primary'></input>
-    </div>
-</form>
-
-    </div>
+      <div className="form-group text-center">
+        <button type="submit" className="btn btn-secondary btn-lg" style={{marginTop: 10}}>Login</button>
+      </div>
+    </form>
+  </div>
+</div>
   )
 }
