@@ -119,7 +119,7 @@ function App() {
           <Route path="/signin" element={isAuth ? ( <AddCarForm />) : (<SignInForm login={loginHandler} /> )}/>
         {/* Add car acting as homepage in this scenario */}
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
-        <Route path='/request/index' element={<RequestList></RequestList>} />
+        <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
           {/* <Route path='' element={} /> */}
