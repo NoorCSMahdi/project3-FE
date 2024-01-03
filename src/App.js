@@ -138,7 +138,7 @@ function App() {
         </Routes>
       </div>
 
-      <footer className="px-3 py-2 text-bg-dark mt-5">
+      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
         <div className="container">
           <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>
         </div>
