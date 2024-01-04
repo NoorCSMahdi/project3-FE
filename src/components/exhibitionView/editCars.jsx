@@ -28,7 +28,7 @@ export default function EditCarForm(props) {
     
   };
 
-  const updateCar = () => {
+  const updateCar = (res) => {
     const carId = res.query.id; // Get the car ID from props
     Axios.post(`/car/update/${carId}`, updatedCar, {
       headers: {
