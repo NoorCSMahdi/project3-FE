@@ -1,0 +1,127 @@
+import React, { useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom';
+import Axios from 'axios';
+import Map from '../forms/Map';
+import AddExhibitionForm from '../forms/AddExhibitionForm';
+
+export default function ExhibitionDetailPage(props) {
+  const [exhibitionData, setExhibitionData] = useState([]);
+  const [exhibition, setExhibition] = useState([]);
+  const { id: exhibitionId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch cars for the specific exhibition
+    Axios
+      .get(`/exhibition/detail?id=${exhibitionId}`)
+      .then(response => {
+        console.log(response);
+        setExhibition(response.data.exhibition ? response.data.exhibition : []);
+      })
+      .catch(error => {
+        console.error('Error fetching exhibition:', error);
+      });
+  }, [exhibitionId]);
+  
+  console.log("///", exhibitionData);
+  // Function to handle form input changes
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setExhibitionData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
+  // Function to handle form submission
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // Perform any additional actions on form submission
+  
+
+  return (
+    // <div className="container">
+    //   <div className="mb-4">
+    //     <h2>Exhibition Details</h2>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_name" className="form-label">
+    //       Exhibition Name:
+    //     </label>
+    //     <p>{exhibitionData.exhibition_name}</p>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_description" className="form-label">
+    //       Description of the Exhibition:
+    //     </label>
+    //     <p>{exhibitionData.exhibition_description}</p>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_phoneNumber" className="form-label">
+    //       Business' Contacts:
+    //     </label>
+    //     <p>{exhibitionData.exhibition_phoneNumber}</p>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_emailAddress" className="form-label">
+    //       Business Email-Address:
+    //     </label>
+    //     <p>{exhibitionData.exhibition_emailAddress}</p>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_image" className="form-label">
+    //       Exhibition Image:
+    //     </label>
+    //     <img src={exhibitionData.exhibition_image} alt="Exhibition" />
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="working_days" className="form-label">
+    //       Working Days:
+    //     </label>
+    //     <p>{exhibitionData.working_days}</p>
+    //   </div>
+
+    //   <div className="mb-3">
+    //     <label htmlFor="exhibition_location" className="form-label">
+    //       Exhibition Location:
+    //     </label>
+    //     <Map>
+    //     <p>{exhibitionData.exhibition_location}</p>
+    //     </Map>
+    //   </div>
+<>
+      <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
+      {setExhibition ? (
+        <ExhibitionDetailPage exhibitionId={exhibitionId} showForm={setExhibition} />
+      ) : (
+        exhibition.map(exhibition => (
+          <div key={exhibition._id} className="card mb-3">
+            <div className="card-body">
+              <h2 className="card-title">Exhibition Name{exhibitionData.exhibition_name}</h2>
+              <img src={exhibitionData.exhibition_image} alt={exhibitionData.exhibition_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
+              <p className="card-text">Exhibition Description: {exhibitionData.exhibition_description}</p>
+              <p className="card-text">Business Email-Address: {exhibitionData.exhibition_emailAddress}</p>
+              <p className="card-text">Business' Contacts: {exhibitionData.exhibition_phoneNumber}</p>
+              <p className="card-text">Exhibition Location: {exhibitionData.exhibition_location}</p>
+             </div>
+             
+    </div>
+        )
+        )
+
+      )
+        }
+      </>
+
+  )
+
+
+        
+}
