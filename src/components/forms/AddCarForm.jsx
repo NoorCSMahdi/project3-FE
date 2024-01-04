@@ -3,7 +3,14 @@ import Axios from 'axios';
 
 export default function AddCarForm(props) {
   const [newCar, setNewCar] = useState({});
+  const [file, setFile] = useState(null);
+  const [imageName, setImageName] = useState(null);
 
+  const handleImage = (e) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+  };
+  
   const addCar = (car) => {
     const exhibitionId = props.exhibitionId; // Get the exhibition ID from props
     car.exhibitionId = exhibitionId; // Add the exhibition ID to the car object
@@ -31,10 +38,37 @@ export default function AddCarForm(props) {
     setNewCar(car);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    addCar(newCar);
+  
+    const exhibitionId = props.exhibitionId; // Get the exhibition ID from props
+    newCar.exhibitionId = exhibitionId; // Add the exhibition ID to the newCar object
+  
+    const formData = new FormData();
+    formData.append("car_avatar", file);
+    formData.append("car_description", newCar.car_description);
+    formData.append("car_price", newCar.car_price);
+    formData.append("car_model", newCar.car_model);
+    formData.append("car_company", newCar.car_company);
+    formData.append("car_name", newCar.car_name);
+    formData.append("Exhibition", exhibitionId);
+  
+    try {
+      const result = await Axios.post('/car/add', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE"
+        }
+      });
+  
+      setImageName(result.data.imageName);
+      console.log('Car added successfully!');
+      props.showForm(false);
+    } catch (error) {
+      console.log('Error adding car:', error);
+    }
   };
+  
 
   return (
     <div className="container">
@@ -125,10 +159,10 @@ export default function AddCarForm(props) {
             required
             type="file"
             className="form-control"
-            id="car_image"
-            name="car_image"
+            id="car_avatar"
+            name="car_avatar"
             accept=".png, .jpg, .jpeg, .gif"
-            onChange={handleChange}
+            onChange={handleImage}
           />
         </div>
 
