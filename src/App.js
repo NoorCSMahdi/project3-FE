@@ -112,6 +112,17 @@ function App() {
     return {headers:{Authorization:`Bearer ${getToken()}`}}
   }
 
+  // const [user, setUser] = useState({})
+
+  useEffect(()=>{
+    console.log("useEffect user", user );
+    if(!user.id) return
+      true
+    .catch((err) => {
+        console.log(err)
+    })
+  },[user.id])
+
   return (
     <div className="App">
        <div className="px-3 py-2 text-bg-dark border-bottom text-right header">

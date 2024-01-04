@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Review from '../review/Review'
 import Axios from 'axios';
 // import FetchUserInfo from './FetchUserInfo'
 
 export default function UserDetails(props) {
+  const navigate = useNavigate();
+
   console.log(props);
   const [user, setUser] = useState({})
 
@@ -20,6 +23,10 @@ export default function UserDetails(props) {
         console.log(err)
     })
   },[props.user.id])
+
+  const handleEditUser = (id) => {
+    navigate(`/user/edit/${id}`);
+  };
   return (
     <>
     {/* <FetchUserInfo id={props.id}/> */}
@@ -32,7 +39,7 @@ export default function UserDetails(props) {
     <div><span className='profileSpan'>Email Address: </span>{user.user_emailAddress}</div>
     {/* <div>{user.user_password}</div> */}
     <br/>
-    <div><button className='btn btn-secondary' onClick={() => props.editView(props._id)}>Edit</button></div>
+    <div><button className='btn btn-secondary' onClick={() => handleEditUser(user.id)}>Edit</button></div>
     {/* <div><button onClick={() => props.deleteUser(props._id)}>Delete</button></div> */}
     </>
   }
