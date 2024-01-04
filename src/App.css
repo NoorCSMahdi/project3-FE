@@ -100,3 +100,13 @@ color: #69443C;
   width: auto;
   height: 25px;
 }
+.profileImg{
+  width: 30vw;
+  border-radius: 50px;
+  margin: 20px;
+}
+.profileSpan{
+  padding: 10px 5px;
+  font-size: 20px;
+  font-weight: bold;
+}

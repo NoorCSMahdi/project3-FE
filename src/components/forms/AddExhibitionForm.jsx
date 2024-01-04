@@ -96,6 +96,7 @@ export default function AddExhibitionForm(props) {
     } catch (error) {
       console.log('Error adding Exhibition:', error);
     }
+    event.target.reset();
   };
 
   return (
