@@ -150,7 +150,7 @@ function App() {
           <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
           <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
           />
-          <Route path="/exhibition/detail" element={<ExhibitionDetails></ExhibitionDetails>} />
+          <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />
           <Route path="car/edit/:id" element={<EditCars/>} />
           <Route path="car/add" element={<AddCarForm />} />
           <Route path="/exhibition/add" element={<AddExhibitionForm />} />
