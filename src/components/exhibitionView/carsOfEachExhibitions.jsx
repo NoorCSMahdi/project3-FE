@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link , useParams} from 'react-router-dom';
 import AddCarForm from '../forms/AddCarForm';
 
-function ExhibitionCarsPage( ) {
+function ExhibitionCarsPage(props) {
   const [cars, setCars] = useState([]);
   const [addCar, setAddCar] = useState(false)
   const [exhibition, setExhibition] = useState([]);
@@ -22,13 +22,21 @@ function ExhibitionCarsPage( ) {
         console.error('Error fetching cars:', error);
       });
   }, [exhibitionId, addCar]);
+  console.log("--", props.user);
+  const admin = () => {
+    console.log("--", props.user);
+    if(props.user.userType == "Admin" || props.user.userType == "SubAdmin"){
+      return true
+    }
+  };
 
   return (
-
 <div className="container">
+  {admin ?
   <div className="d-flex justify-content-end mb-3">
     <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
   </div>
+  : <></> }
   <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
   {addCar ? (
     <AddCarForm exhibitionId={exhibitionId} showForm={setAddCar} />

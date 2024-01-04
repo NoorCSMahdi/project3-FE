@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
+import Axios from 'axios';
+
 
 export default function SignUpForm(props) {
 
     const [newUser, setNewUser] = useState({});
+    const [file, setFile] = useState(null);
+    const [imageName, setImageName] = useState(null);
+
+    const handleImage = (e) => {
+      console.log(e.target.files[0]);
+      setFile(e.target.files[0]);
+    };
 
     const handleChange = (event) => {
         const user = {...newUser};
@@ -11,9 +20,22 @@ export default function SignUpForm(props) {
         setNewUser(user);
     }
 
-    const registerHandler = (e) => {
+    const registerHandler = async (e) => {
         e.preventDefault();
-        props.register(newUser);
+        const formData = new FormData();
+        formData.append("user_image", file);
+        formData.append("user_password", newUser.user_password);
+        formData.append("user_emailAddress", newUser.user_emailAddress);
+        formData.append("user_phoneNumber", newUser.user_phoneNumber);
+        formData.append("user_fullName", newUser.user_fullName);
+        console.log(formData)
+        try {
+          const result = await Axios.post('/auth/signup', formData, { headers: {'Content-Type': 'multipart/form-data'}});
+          setImageName(result.data.imageName);
+          console.log('User Added successfully!!!');
+        } catch (error) {
+          console.log('Error adding User:', error);
+        }
         e.target.reset();
     }
 
@@ -45,7 +67,7 @@ export default function SignUpForm(props) {
 
       <div className="form-group">
         <label>Profile Picture:</label>
-        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleChange} style={{marginLeft: 10}}/>
+        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleImage} style={{marginLeft: 10}}/>
       </div>
 
       <div className="text-center">
