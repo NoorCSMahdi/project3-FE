@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 export default function EditCarForm(props) {
   const [carData, setCarData] = useState(props.car);
-  const [updatedCar, setUpdatedCar] = useState({
-      car_name: '',
-      car_company: '',
-      car_model: '',
-      car_price: '',
-      car_description: '',
-      car_avatar: '',
-  });
+  const [updatedCar, setUpdatedCar] = useState({});
+  const { id: carId } = useParams(); // Get the carId from the URL parameter
+
+      // car_name: '',
+      // car_company: '',
+      // car_model: '',
+      // car_price: '',
+      // car_description: '',
+      // car_avatar: '',
+  // });
 
   useEffect(() => {
+    axios
+      .get(`/car/edit?id=${carId}`)
+      .then(response => {
+        console.log(response);
+        setUpdatedCar(response.data.car);
+        })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
   //   setCarData(props.car);
-   setUpdatedCar(props.car);
- }, [props.car]);
+  //  setUpdatedCar(props.car);
+ }, []);
 
   const handleChange = (event) => {
     const attributeToChange = event.target.name;
@@ -28,11 +41,10 @@ export default function EditCarForm(props) {
     
   };
 
-  const updateCar = (res) => {
-    const carId = res.query.id; // Get the car ID from props
-    Axios.post(`/car/update/${carId}`, updatedCar, {
+  const updateCar = () => {
+    axios.put(`/car/update`, updatedCar, {
       headers: {
-        Authorization: "Bearer Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE",
       },
     })
       .then((res) => {
@@ -46,7 +58,8 @@ export default function EditCarForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.updatedCarData(props.updatedCarData);
+    // props.updatedCarData(props.updatedCarData);
+    updateCar();
   };
 
   return (
@@ -66,7 +79,7 @@ export default function EditCarForm(props) {
             className="form-control"
             id="car_name"
             name="car_name"
-            value={updateCar.car_name}
+            value={updatedCar.car_name}
             onChange={handleChange}
           />
         </div>
@@ -81,7 +94,7 @@ export default function EditCarForm(props) {
             className="form-control"
             id="car_company"
             name="car_company"
-            value={updateCar.car_company}
+            value={updatedCar.car_company}
             onChange={handleChange}
           />
         </div>
@@ -96,7 +109,7 @@ export default function EditCarForm(props) {
             className="form-control"
             id="car_model"
             name="car_model"
-            value={updateCar.car_model}
+            value={updatedCar.car_model}
             onChange={handleChange}
           />
         </div>
@@ -111,7 +124,7 @@ export default function EditCarForm(props) {
             className="form-control"
             id="car_price"
             name="car_price"
-            value={updateCar.car_price}
+            value={updatedCar.car_price}
             onChange={handleChange}
           />
         </div>
@@ -126,7 +139,7 @@ export default function EditCarForm(props) {
             className="form-control"
             id="car_description"
             name="car_description"
-            value={updateCar.car_description}
+            value={updatedCar.car_description}
             onChange={handleChange}
           />
         </div>

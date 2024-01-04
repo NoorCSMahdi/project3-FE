@@ -110,16 +110,16 @@ export default function RequestList(props) {
     <div>
        <h1>Request List</h1> 
        <div>
-        <table className='table table-striped'>
+        <table className='table table-bordered'>
             <tbody>
             <tr>
-            <th>User Account</th>
-                <th>Exhibition Name</th>
-                <th>Reason Of Request</th>
-                <th>Request CR</th>
-                <th>Approve</th>
-                <th>Decline</th>
-                <th>Done</th>
+            <th scope="col">User Account</th>
+                <th scope="col">Exhibition Name</th>
+                <th scope="col">Reason Of Request</th>
+                <th scope="col">Request CR</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Decline</th>
+                <th scope="col">Done</th>
             
             </tr>
             
