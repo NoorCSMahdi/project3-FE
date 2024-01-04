@@ -7,7 +7,10 @@ import AddExhibitionForm from '../forms/AddExhibitionForm';
 
 export default function ExhibitionDetailPage(props) {
   const [exhibitionData, setExhibitionData] = useState([]);
-  const [exhibition, setExhibition] = useState([]);
+  const [exhibition, setExhibition] = useState({
+    exhibition_latitude:0,
+    exhibition_longtude:0
+  });
   const { id: exhibitionId } = useParams();
   const navigate = useNavigate();
 
@@ -17,6 +20,16 @@ export default function ExhibitionDetailPage(props) {
       .get(`/exhibition/detail?id=${exhibitionId}`)
       .then(response => {
         console.log(response);
+        let lat = parseFloat(response.data.exhibition.exhibition_latitude);
+        let long = parseFloat(response.data.exhibition.exhibition_longtude);
+        if(isNaN(lat)){
+          lat = 0;
+        }
+        if(isNaN(long)){
+          long = 0;
+        }
+        response.data.exhibition.exhibition_latitude = lat;
+        response.data.exhibition.exhibition_longtude = long;
         setExhibition(response.data.exhibition ? response.data.exhibition : []);
       })
       .catch(error => {
@@ -98,26 +111,24 @@ export default function ExhibitionDetailPage(props) {
     //   </div>
 <>
       <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
-      {setExhibition ? (
-        <ExhibitionDetailPage exhibitionId={exhibitionId} showForm={setExhibition} />
-      ) : (
-        exhibition.map(exhibition => (
+
           <div key={exhibition._id} className="card mb-3">
             <div className="card-body">
-              <h2 className="card-title">Exhibition Name{exhibitionData.exhibition_name}</h2>
-              <img src={exhibitionData.exhibition_image} alt={exhibitionData.exhibition_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
-              <p className="card-text">Exhibition Description: {exhibitionData.exhibition_description}</p>
-              <p className="card-text">Business Email-Address: {exhibitionData.exhibition_emailAddress}</p>
-              <p className="card-text">Business' Contacts: {exhibitionData.exhibition_phoneNumber}</p>
-              <p className="card-text">Exhibition Location: {exhibitionData.exhibition_location}</p>
+              <h2 className="card-title">Exhibition Name{exhibition.exhibition_name}</h2>
+              <img src={exhibitionData.exhibition_image} alt={exhibition.exhibition_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
+              <p className="card-text">Exhibition Description: {exhibition.exhibition_description}</p>
+              <p className="card-text">Business Email-Address: {exhibition.exhibition_emailAddress}</p>
+              <p className="card-text">Business' Contacts: {exhibition.exhibition_phoneNumber}</p>
+              <p className="card-text">Exhibition Location: {exhibition.exhibition_latitude}</p>
+              <Map destination={[exhibition.exhibition_latitude, exhibition.exhibition_longtude]}></Map>
              </div>
              
     </div>
-        )
-        )
+        
+        
 
-      )
-        }
+      
+        
       </>
 
   )
