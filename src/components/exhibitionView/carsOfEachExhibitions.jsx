@@ -41,11 +41,14 @@ function ExhibitionCarsPage(props) {
   };
 
   const handleEditCar = (carId) => {
-    navigate(`/car/edit?id=${carId}`);
+    navigate(`/car/edit/${carId}`);
   };
 
   return (
     <div className="container">
+       <div className="d-flex justify-content-start mb-3">
+        <Link to="/exhibition/detail" className="btn btn-secondary">Exhibition Details</Link>
+      </div>
       <div className="d-flex justify-content-end mb-3">
         <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
       </div>
@@ -63,7 +66,7 @@ function ExhibitionCarsPage(props) {
               <p className="card-text">Price: {car.car_price}</p>
               <img src={car.car_avatar} alt={car.car_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
               <Delete delete={handleDeleteCar} car={car} />
-              <button className="btn btn-danger" onClick={() => handleDeleteCar(car._id)}>Delete</button>
+              {/* <button className="btn btn-danger" onClick={() => handleDeleteCar(car._id)}>Delete</button> */}
               <button className="btn btn-primary" onClick={() => handleEditCar(car._id)}>Edit</button>
             </div>
           </div>
