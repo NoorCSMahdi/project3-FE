@@ -47,7 +47,7 @@ function ExhibitionCarsPage(props) {
   return (
     <div className="container">
        <div className="d-flex justify-content-start mb-3">
-        <Link to="/exhibition/detail" className="btn btn-secondary">Exhibition Details</Link>
+        <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
       </div>
       <div className="d-flex justify-content-end mb-3">
         <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
