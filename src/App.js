@@ -16,6 +16,7 @@ import HomePage from './components/homepage/HomePage';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReviewForm from './components/review/ReviewForm';
 import UserProfile from './components/profileView/UserProfile';
+import EditCars from './components/exhibitionView/editCars'
 import UserDetails from "./components/profileView/UserDetails";
 import UserList from "./components/profileView/UserList";
 
@@ -106,6 +107,9 @@ function App() {
       console.log(err)
   })
   }
+  const setHeaders =() =>{
+    return {headers:{Authorization:`Bearer ${getToken()}`}}
+  }
 
   return (
     <div className="App">
@@ -143,8 +147,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
           <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
-          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage></ExhibitionCarsPage>}
+          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
           />
+          <Route path="car/edit" element={<EditCars/>} />
           <Route path="car/add" element={<AddCarForm />} />
           <Route path="/exhibition/add" element={<AddExhibitionForm />} />
           <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
