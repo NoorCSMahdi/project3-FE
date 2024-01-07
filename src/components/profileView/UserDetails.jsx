@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Review from '../review/Review'
 import Axios from 'axios';
+import EditProfile from './EditProfile';
 // import FetchUserInfo from './FetchUserInfo'
 
 export default function UserDetails(props) {
+  const navigate = useNavigate();
+
   console.log(props);
   const [user, setUser] = useState({})
+  const [isEdit,setIsEdit]=useState(false)
 
   useEffect(()=>{
     console.log("useEffect user", props.user );
@@ -20,6 +25,22 @@ export default function UserDetails(props) {
         console.log(err)
     })
   },[props.user.id])
+
+  const handleEditUser = (id) => {
+    setIsEdit(!isEdit)
+    // navigate(`/user/edit/${id}`);
+  };
+
+  const EditUpdate = (user)=>{
+    Axios.put("/user/update",user)
+    .then((res)=>{
+        console.log("User Updated successfully")
+    })
+    .catch((err)=>{
+     console.log(err)
+    })
+
+  }
   return (
     <>
     {/* <FetchUserInfo id={props.id}/> */}
@@ -32,18 +53,15 @@ export default function UserDetails(props) {
     <div><span className='profileSpan'>Email Address: </span>{user.user_emailAddress}</div>
     {/* <div>{user.user_password}</div> */}
     <br/>
-    <div><button className='btn btn-secondary' onClick={() => props.editView(props._id)}>Edit</button></div>
+    <div><button className='btn btn-secondary' onClick={() => handleEditUser(user.id)}>Edit</button></div>
     {/* <div><button onClick={() => props.deleteUser(props._id)}>Delete</button></div> */}
     </>
   }
+  {isEdit && <EditProfile id={user.id} user={user} EditUpdate={EditUpdate} />}
     </>
-    // <div className='profilePage'>
-    //   <div className=''>
-    //     {/* Review List and Request form to be independent Showcaser */}
-    //     <p className='profileReviewList'><Link to="/review/index">Reviews</Link></p>
-    //   </div>
+  
 
 
-    // </div>
+    
   )
 }

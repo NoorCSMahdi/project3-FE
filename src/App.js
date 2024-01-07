@@ -20,83 +20,88 @@ import EditCars from './components/exhibitionView/editCars';
 import ExhibitionDetails from './components/exhibitionView/exhibitionDetails';
 import UserDetails from "./components/profileView/UserDetails";
 import UserList from "./components/profileView/UserList";
-
 // import { Exhibition } from '../../Voiture/models/Exhibition';
-
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
   const [userList, setUserList] = useState([user]);
   const [currentUser, setCurrentUser] = useState();
-
+  const [userInfo,setUserInfo]=useState()
 
 
   useEffect(() => {
     //const user = setUser();
     const user = getUser();
-
     console.log("INIT USER",user);
-
     if (user) {
       setIsAuth(true);
       setUser(user);
+      Axios.get(`/user/detail?id=${user.id}`)
+      .then(res=>{
+        console.log("res",res);
+        setUserInfo(res.data.user)
+      })
+      .catch(err=>{
+        console.log(err);
+      })
     } else {
       localStorage.removeItem("token");
       setIsAuth(false);
       setUser(null);
+      
     }
   }, []);
-
   const registerHandler = (user) => {
     Axios.post("auth/signup", user)
       .then((res) => {
         console.log(res);
       })
-
       .catch((err) => {
         console.log(err);
       });
   };
-
   const loginHandler = (cred) => {
     Axios.post("auth/signin", cred)
       .then((res) => {
         console.log(res.data.token);
-
         //Makes sure the token is Valid
         let token = res.data.token;
-
         if (token != null) {
           localStorage.setItem("token", token);
           const user = getUser();
           console.log(user);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUser(user) : setUser(null);
+          if(user)
+          Axios.get(`user/detail?id=${user.id}`)
+      .then(res=>{
+        console.log("res",res);
+        setUserInfo(res.data.user)
+      })
+      .catch(err=>{
+        console.log(err);
+      })
         }
       })
-
       .catch((err) => {
         console.log(err);
       });
   };
-
   const getUser = () => {
     const token = getToken();
     return token ? jwtDecode(token).user : null;
   };
-
   const getToken = () => {
     const token = localStorage.getItem("token");
     return token;
   };
-
   const onLogoutHandler = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setIsAuth(false);
     setUser(null);
+    setUserInfo(null);
   };
-
   const showUser = (id) =>{
     Axios.get(`/user/detail?id=${id}`)
     .then((response) => {
@@ -111,7 +116,15 @@ function App() {
   const setHeaders =() =>{
     return {headers:{Authorization:`Bearer ${getToken()}`}}
   }
-
+  // const [user, setUser] = useState({})
+  // useEffect(()=>{
+  //   console.log("useEffect user", user );
+  //   if(!user.id) return
+  //     true
+  //   .catch((err) => {
+  //       console.log(err)
+  //   })
+  // },[user.id])
   return (
     <div className="App">
        <div className="px-3 py-2 text-bg-dark border-bottom text-right header">
@@ -120,47 +133,69 @@ function App() {
     <Link className='nav-link text-white d-inline me-auto float-start' to="/">
       <img className='logo' src='voiture-logo-white-transparent.png'/>
     </Link>
-    {isAuth ? (
+    { userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ? (
       <div>
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
         <Link className="nav-link text-white d-inline" style={{padding:10}} to="/exhibition/add">Add Exhibition</Link>&nbsp;
-        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp;
-        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp;
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp; */}
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/index"> User List</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/detail"><img className='profile' src='profile.png'/></Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
       </div>
     ) : (
+      
+        ""
+    )}
+        {userInfo && userInfo.userType=="User" ? (
       <div>
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
+        {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/exhibition/add">Add Exhibition</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp; */}
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp;
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/index"> User List</Link>&nbsp; */}
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/detail"><img className='profile' src='profile.png'/></Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
+      </div>
+    ) : (
+ ""
+    )}
+        {!isAuth ? (
+    
+          <div>
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signup">Sign Up</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/signin">Sign In</Link> &nbsp;
       </div>
+   
+    ) : (
+   ""
     )}
   </div>
 </nav>
   </div>
-
       <div>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
-          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
+          <Route path='/exhibition/index' element={<ExhibitionPage user={userInfo}></ExhibitionPage>} />
+          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders} user={userInfo}></ExhibitionCarsPage>}
           />
           <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />
           <Route path="car/edit/:id" element={<EditCars/>} />
           <Route path="car/add" element={<AddCarForm />} />
-          <Route path="/exhibition/add" element={<AddExhibitionForm />} />
+          <Route path="/exhibition/add" element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<AddExhibitionForm />:<HomePage />} />
           <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
-          <Route path="/signin" element={isAuth ? ( <HomePage />) : (<SignInForm login={loginHandler} /> )}/>
+          <Route path="/signin" element={isAuth &&userInfo? ( <HomePage />) : (<SignInForm login={loginHandler} /> )}/>
         <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
-        <Route path='/request/index' element={<RequestList user={user}></RequestList>} />
+        <Route path='/request/index' element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<RequestList user={user}></RequestList>:<HomePage />} />
         <Route path='/review/add' element={<ReviewForm user={user}></ReviewForm>} />
         <Route path='/user/detail' element={<UserDetails user={user}></UserDetails>} />
-        <Route path='/user/index' element={<UserList user={user} showUser={showUser}></UserList>} />
+        <Route path='/user/index' element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ? <UserList user={user} showUser={showUser}></UserList>:<HomePage />} />
         {/* <Route path='/logout' element={<HomePage></HomePage>} /> */}
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
@@ -175,5 +210,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

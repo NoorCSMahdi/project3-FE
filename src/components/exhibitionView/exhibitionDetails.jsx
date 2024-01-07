@@ -110,15 +110,15 @@ export default function ExhibitionDetailPage(props) {
     //     </Map>
     //   </div>
 <>
-      <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
+      <h1 className="mt-5 mb-4">Exhibition Details</h1>
 
           <div key={exhibition._id} className="card mb-3">
             <div className="card-body">
-              <h2 className="card-title">Exhibition Name{exhibition.exhibition_name}</h2>
-              <img src={exhibitionData.exhibition_image} alt={exhibition.exhibition_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
+              <h2 className="card-title">Exhibition Name: {exhibition.exhibition_name}</h2>
+              <img src={exhibition.exhibition_image} alt={exhibition.exhibition_name} className="card-img-top" style={{ width: "50vw", height: "100%", objectFit: "cover" }} />
               <p className="card-text">Exhibition Description: {exhibition.exhibition_description}</p>
               <p className="card-text">Business Email-Address: {exhibition.exhibition_emailAddress}</p>
-              <p className="card-text">Business' Contacts: {exhibition.exhibition_phoneNumber}</p>
+              <p className="card-text">Business Contacts: {exhibition.exhibition_phoneNumber}</p>
               <p className="card-text">Exhibition Location: {exhibition.exhibition_latitude}</p>
               <Map destination={[exhibition.exhibition_latitude, exhibition.exhibition_longtude]}></Map>
              </div>
