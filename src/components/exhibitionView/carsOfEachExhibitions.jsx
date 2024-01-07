@@ -44,13 +44,26 @@ function ExhibitionCarsPage(props) {
     navigate(`/car/edit/${carId}`);
   };
 
+  const deleteExhibition=(id)=>{
+    axios.delete(`/exhibition/delete?id=${id}`)
+    .then(res=>{
+      console.log("exhibition deleted");
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log("error deleting exhibition",err);
+    })
+  }
+
   return (
     <div className="container">
-      <div className="d-flex justify-content-end mb-3 mt-3 gap-2">
-      <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
-       { props.user && (props.user.userType=="Admin"||props.user.userType=="SubAdmin")? <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>:""}
+       <div className="d-flex justify-content-start mb-3">
+        <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
       </div>
-      <h1 className="mt-5 mb-4">Exhibition Cars</h1>
+      <div className="d-flex justify-content-end mb-3">
+        <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
+      </div>
+      <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
       {addCar ? (
         <AddCarForm exhibitionId={exhibitionId} showForm={setAddCar} />
       ) : (
