@@ -35,24 +35,35 @@ function ExhibitionPage(props) {
   };
   return (
     <div className="container">
+<<<<<<< HEAD
       {isEdit && <EditExhibitionForm editExhibition={editExhibition}/>}
     <div className="d-flex justify-content-end">
     <Link to="/request/add" className="btn btn-secondary mt-3" element={<RequestForm user={user}></RequestForm>} >Request Form</Link>
   </div>
+=======
+
+    {props.user && (props.user.userType=="User") ?<div className="d-flex justify-content-end">
+    <Link to="/request/add" className="btn btn-secondary mt-3" element={<RequestForm user={user}></RequestForm>} >Exhibition Owner Request Form</Link>
+  </div>:""}
+>>>>>>> 13eab82afa80d04589cc0fb79b693e9d7f9215a5
  
       <h1 className="mt-5 mb-4">Exhibitions</h1>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4">
         {exhibitions.map(exhibition => (
           <div key={exhibition._id} className="col mb-4">
             <div className="card">
+<<<<<<< HEAD
              {props.currentUser && (props.currentUser.userType=="SubAdmin" ||props.currentUser.userType=="Admin") ? <button onClick={()=>editExhibitionFun(exhibition._id)}>edit</button>:""}
               <Link to={"/exhibition/cars/"+exhibition._id} > {/* Add the Link component */}
                 <img src={exhibition.exhibition_image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={exhibition.exhibition_name} />
+=======
+              <Link to={"/exhibition/cars/"+exhibition._id}>
+                <img src={exhibition.exhibition_image} className="card-img-top" style={{ width: "100%", height: "150px", objectFit: "cover" }} alt={exhibition.exhibition_name} />
+>>>>>>> 13eab82afa80d04589cc0fb79b693e9d7f9215a5
               </Link>
               <div className="card-body">
                 <h2 className="card-title">{exhibition.exhibition_name}</h2>
                 <p className="card-text">{exhibition.exhibition_description}</p>
-                {/* Display other exhibition information as needed */}
               </div>
             </div>
           </div>

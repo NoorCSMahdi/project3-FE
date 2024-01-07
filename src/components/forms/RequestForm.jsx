@@ -50,8 +50,8 @@ export default function RequestForm(props) {
   return (
     <div className="container">
   <div className="mb-4">
-    <h1>Request Form</h1>
-    <p>Submit Your Request</p>
+    <h1>Exhibition Owner Request Form</h1>
+    <p>Submit a request to join our showrooms as an exhibition!</p>
   </div>
 
   <form onSubmit={handleSubmit}>

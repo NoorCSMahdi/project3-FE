@@ -144,7 +144,7 @@ export default function EditCarForm(props) {
           />
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="car_image" className="form-label">
             Image of the Car:
           </label>
@@ -157,7 +157,7 @@ export default function EditCarForm(props) {
             accept=".png, .jpg, .jpeg, .gif"
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <input type="submit" value="Update Car" className="btn btn-primary" />

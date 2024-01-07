@@ -57,13 +57,9 @@ function ExhibitionCarsPage(props) {
 
   return (
     <div className="container">
-      <button onClick={()=>deleteExhibition(exhibition._id)}>Delete Exhibition</button>
        <div className="d-flex justify-content-start mb-3">
         <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
-        {/* <button onClick={props.deleteExhibition(exhibitionId)}>Delete</button>
-         */}
-         {/* {console.log("props",props)} */}
-      </div>  
+      </div>
       <div className="d-flex justify-content-end mb-3">
         <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
       </div>
@@ -72,17 +68,17 @@ function ExhibitionCarsPage(props) {
         <AddCarForm exhibitionId={exhibitionId} showForm={setAddCar} />
       ) : (
         cars.map(car => (
-          <div key={car._id} className="card mb-3">
+          <div key={car._id} className="card mb-3 d-inline-flex" style={{ width: "45%", height: "auto", marginLeft: "10px", marginRight: "10px"}}>
             <div className="card-body">
               <h2 className="card-title">{car.car_name}</h2>
               <p className="card-text">{car.car_description}</p>
               <p className="card-text">Company: {car.car_company}</p>
               <p className="card-text">Model: {car.car_model}</p>
               <p className="card-text">Price: {car.car_price}</p>
-              <img src={car.car_avatar} alt={car.car_name} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} />
-              <Delete delete={handleDeleteCar} car={car} />
+              <img src={car.car_avatar} alt={car.car_name} className="card-img-top" style={{ width: "70%", height: "auto", objectFit: "contain" , padding: 10}} />
+              {props.user && (props.user.userType=="Admin"||props.user.userType=="SubAdmin")?<Delete delete={handleDeleteCar} car={car} />:""}
               {/* <button className="btn btn-danger" onClick={() => handleDeleteCar(car._id)}>Delete</button> */}
-              <button className="btn btn-primary" onClick={() => handleEditCar(car._id)}>Edit</button>
+              {props.user && (props.user.userType=="Admin"||props.user.userType=="SubAdmin")?<button className="btn btn-primary" style={{marginLeft: 5}} onClick={() => handleEditCar(car._id)}>Edit</button>:""}
             </div>
           </div>
         ))

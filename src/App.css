@@ -87,7 +87,7 @@ color: #69443C;
 }
 
 .carBG{
-  background-image: url("");
+  /* background-image: url(""); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
