@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Axios from 'axios';
-
 
 
 export default function EditCarForm(props) {
   const [carData, setCarData] = useState(props.car);
   const [updatedCar, setUpdatedCar] = useState({});
   const { id: carId } = useParams(); // Get the carId from the URL parameter
-  const [file, setFile] = useState(null);
-  const [imageName, setImageName] = useState(null);
-  const handleImage = (e) => {
-    console.log(e.target.files[0]);
-    setFile(e.target.files[0]);
-  };
+
       // car_name: '',
       // car_company: '',
       // car_model: '',
@@ -48,57 +41,25 @@ export default function EditCarForm(props) {
     
   };
 
-  // const updateCar = () => {
-  //   axios.put(`/car/update`, updatedCar, {
-  //     headers: {
-  //       Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE",
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log('Car updated successfully!');
-  //       props.history.push('/cars'); // Redirect to cars listing page
-  //     })
-  //     .catch((err) => {
-  //       console.log('Error updating car');
-  //     });
-  // };
-
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   // props.updatedCarData(props.updatedCarData);
-  //   updateCar();
-  // };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    const exhibitionId = props.exhibitionId; // Get the exhibition ID from props
-    updatedCar.exhibitionId = exhibitionId; // Add the exhibition ID to the newCar object
-  
-    const formData = new FormData();
-    formData.append("car_avatar", file);
-    formData.append("car_description", updatedCar.car_description);
-    formData.append("car_price", updatedCar.car_price);
-    formData.append("car_model", updatedCar.car_model);
-    formData.append("car_company", updatedCar.car_company);
-    formData.append("car_name", updatedCar.car_name);
-    formData.append("Exhibition", exhibitionId);
-  
-    try {
-      const result = await Axios.post('/car/update', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE"
-        }
+  const updateCar = () => {
+    axios.put(`/car/update`, updatedCar, {
+      headers: {
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU5NTFhM2ZjOGY2MzliNTgyYmU5Njk0In0sImlhdCI6MTcwNDI3MDQyOCwiZXhwIjoxNzQwMjcwNDI4fQ.EO0M9cEZ4PXaVQrODdPBMdQumnhdZSzuA5BsXkvF4XE",
+      },
+    })
+      .then((res) => {
+        console.log('Car updated successfully!');
+        props.history.push('/cars'); // Redirect to cars listing page
+      })
+      .catch((err) => {
+        console.log('Error updating car');
       });
-  
-      setImageName(result.data.imageName);
-      console.log('Car added successfully!');
-      props.showForm(false);
-    } catch (error) {
-      console.log('Error adding car:', error);
-    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // props.updatedCarData(props.updatedCarData);
+    updateCar();
   };
 
   return (
@@ -183,7 +144,7 @@ export default function EditCarForm(props) {
           />
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="car_image" className="form-label">
             Image of the Car:
           </label>
@@ -194,9 +155,9 @@ export default function EditCarForm(props) {
             id="car_image"
             name="car_image"
             accept=".png, .jpg, .jpeg, .gif"
-            onChange={handleImage}
+            onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <input type="submit" value="Update Car" className="btn btn-primary" />

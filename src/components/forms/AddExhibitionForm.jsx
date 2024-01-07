@@ -85,7 +85,7 @@ export default function AddExhibitionForm(props) {
     formData.append("exhibition_latitude", destination.lat);
     formData.append("exhibition_longtude", destination.lng);
     // console.log("newExhibition.exhibition_location", location)
-    formData.append("working_days", newExhibition.working_days);
+    // formData.append("working_days", newExhibition.working_days);
 
     console.log(formData)
     
@@ -171,7 +171,7 @@ export default function AddExhibitionForm(props) {
   />
 </div>
 
-<div className="mb-3">
+{/* <div className="mb-3">
   <label htmlFor="working_days" className="form-label">
     Working Days:
   </label>
@@ -182,7 +182,7 @@ export default function AddExhibitionForm(props) {
     name="working_days"
     onChange={handleChange}
   />
-</div>
+</div> */}
 
         <div className="mb-3">
           <label htmlFor="exhibition_location" className="form-label">
