@@ -40,13 +40,49 @@ function App() {
     if (user) {
       setIsAuth(true);
       setUser(user);
+      setCurrentUser(showUser(user.id))
+      const userType = user.userType;
+    console.log("User Type:", userType);
     } else {
       localStorage.removeItem("token");
       setIsAuth(false);
       setUser(null);
     }
   }, []);
+  const [userType, setUserType] = useState(null); // New state variable for userType
 
+  useEffect(() => {
+    const user = getUser();
+
+    console.log("INIT USER", user);
+
+    if (user) {
+      setIsAuth(true);
+      fetchUserDetails(user); // Fetch user details and set userType
+    } else {
+      localStorage.removeItem("token");
+      setIsAuth(false);
+    }
+  }, []);
+
+  // ...
+
+  const fetchUserDetails = (userId) => {
+    Axios.get(`/user/detail?id=${userId}`)
+      .then((response) => {
+        console.log(response);
+        let user = response.data.user;
+        const userType = user.userType;
+        setUserType(userType);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // ...
+
+  console.log("User Type:", userType);
   const registerHandler = (user) => {
     Axios.post("auth/signup", user)
       .then((res) => {
@@ -72,6 +108,8 @@ function App() {
           console.log(user);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUser(user) : setUser(null);
+          user ? setCurrentUser(showUser(user.id)):setCurrentUser(null)
+
         }
       })
 
@@ -112,6 +150,8 @@ function App() {
     return {headers:{Authorization:`Bearer ${getToken()}`}}
   }
 
+  console.log( "test",{...user});
+
   return (
     <div className="App">
        <div className="px-3 py-2 text-bg-dark border-bottom text-right header">
@@ -147,7 +187,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
+          <Route path='/exhibition/index' element={currentUser&&<ExhibitionPage currentUser={currentUser}></ExhibitionPage>} />
           <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
           />
           <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />

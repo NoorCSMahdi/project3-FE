@@ -44,11 +44,26 @@ function ExhibitionCarsPage(props) {
     navigate(`/car/edit/${carId}`);
   };
 
+  const deleteExhibition=(id)=>{
+    axios.delete(`/exhibition/delete?id=${id}`)
+    .then(res=>{
+      console.log("exhibition deleted");
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log("error deleting exhibition",err);
+    })
+  }
+
   return (
     <div className="container">
+      <button onClick={()=>deleteExhibition(exhibition._id)}>Delete Exhibition</button>
        <div className="d-flex justify-content-start mb-3">
         <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
-      </div>
+        {/* <button onClick={props.deleteExhibition(exhibitionId)}>Delete</button>
+         */}
+         {/* {console.log("props",props)} */}
+      </div>  
       <div className="d-flex justify-content-end mb-3">
         <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
       </div>

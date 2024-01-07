@@ -51,7 +51,7 @@ export default function ExhibitionDetailPage(props) {
   // const handleSubmit = (event) => {
   //   event.preventDefault();
   //   // Perform any additional actions on form submission
-  
+
 
   return (
     // <div className="container">
@@ -111,7 +111,7 @@ export default function ExhibitionDetailPage(props) {
     //   </div>
 <>
       <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
-
+          
           <div key={exhibition._id} className="card mb-3">
             <div className="card-body">
               <h2 className="card-title">Exhibition Name{exhibition.exhibition_name}</h2>
