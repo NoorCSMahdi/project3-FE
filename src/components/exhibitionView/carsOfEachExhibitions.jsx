@@ -58,13 +58,13 @@ function ExhibitionCarsPage(props) {
 
   return (
     <div className="container">
-       <div className="d-flex justify-content-start mb-3">
-        <button onClick={()=>deleteExhibition(exhibitionId)}>Delete Exibition</button>
+       <div className="d-flex justify-content-start mb-3 mt-2">
+       {props.user && (props.user.userType=="Admin"||props.user.userType=="SubAdmin")?<button className='btn btn-danger' style={{marginRight:"5px"}} onClick={()=>deleteExhibition(exhibitionId)}>Delete Exibition</button>:""}
         <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
       </div>
-      <div className="d-flex justify-content-end mb-3">
+      {props.user && (props.user.userType=="Admin"||props.user.userType=="SubAdmin")?<div className="d-flex justify-content-end mb-3">
         <Link onClick={() => setAddCar(true)} className="btn btn-secondary">Add Car</Link>
-      </div>
+      </div>:""}
       <h1 className="mt-5 mb-4">Cars for Exhibition</h1>
       {addCar ? (
         <AddCarForm exhibitionId={exhibitionId} showForm={setAddCar} />

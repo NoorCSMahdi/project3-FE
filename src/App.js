@@ -114,7 +114,7 @@ function App() {
     <Link className='nav-link text-white d-inline me-auto float-start' to="/">
       <img className='logo' src='voiture-logo-white-transparent.png'/>
     </Link>
-    { userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ? (
+    { userInfo && (userInfo.userType=="Admin") ? (
       <div>
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
         <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
@@ -129,6 +129,21 @@ function App() {
     ) : (
       
         ""
+    )}
+    {userInfo && userInfo.userType=="SubAdmin" ? (
+      <div>
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/">Home</Link> &nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/exhibition/index">Exhibition</Link>&nbsp;
+        <Link className="nav-link text-white d-inline" style={{padding:10}} to="/exhibition/add">Add Exhibition</Link>&nbsp;
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/review/add">Review</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/add">Submit Request</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/request/index"> Request List</Link>&nbsp; */}
+        {/* <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/index"> User List</Link>&nbsp; */}
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/user/detail"><img className='profile' src='profile.png'/></Link>&nbsp;
+        <Link className='nav-link text-white d-inline' style={{padding:10}} to="/logout" onClick={onLogoutHandler}>Logout</Link> &nbsp;
+      </div>
+    ) : (
+ ""
     )}
         {userInfo && userInfo.userType=="User" ? (
       <div>
@@ -163,20 +178,20 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path='/exhibition/index' element={userInfo&&<ExhibitionPage user={userInfo}></ExhibitionPage>} />
-          <Route path="/exhibition/cars/:id" element={userInfo&&<ExhibitionCarsPage setHeaders={setHeaders} user={userInfo}></ExhibitionCarsPage>}
+          <Route path='/exhibition/index' element={<ExhibitionPage user={userInfo}></ExhibitionPage>} />
+          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders} user={userInfo}></ExhibitionCarsPage>}
           />
           <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />
-          <Route path="car/edit/:id" element={<EditCars/>} />
-          <Route path="car/add" element={<AddCarForm />} />
+          <Route path="car/edit/:id" element={userInfo&&(userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<EditCars/>:<HomePage />} />
+          <Route path="car/add" element={userInfo&&(userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<AddCarForm />:<HomePage />} />
           <Route path="/exhibition/add" element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<AddExhibitionForm />:<HomePage />} />
-          <Route path="/signup" element={<SignUpForm register={registerHandler} />} />
+          <Route path="/signup" element={isAuth &&userInfo? ( <HomePage />) :(<SignUpForm register={registerHandler} />)} />
           <Route path="/signin" element={isAuth &&userInfo? ( <HomePage />) : (<SignInForm login={loginHandler} /> )}/>
-        <Route path="/request/add" element={<RequestForm user={user}></RequestForm>} />
-        <Route path='/request/index' element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ?<RequestList user={user}></RequestList>:<HomePage />} />
+        <Route path="/request/add" element={userInfo && (userInfo.userType=="User") ?<RequestForm user={user}></RequestForm>:<HomePage />} />
+        <Route path='/request/index' element={userInfo && (userInfo.userType=="Admin") ?<RequestList user={user}></RequestList>:<HomePage />} />
         <Route path='/review/add' element={<ReviewForm user={user}></ReviewForm>} />
         <Route path='/user/detail' element={<UserDetails user={user}></UserDetails>} />
-        <Route path='/user/index' element={userInfo && (userInfo.userType=="Admin"||userInfo.userType=="SubAdmin") ? <UserList user={user} showUser={showUser}></UserList>:<HomePage />} />
+        <Route path='/user/index' element={userInfo && (userInfo.userType=="Admin") ? <UserList user={user} showUser={showUser}></UserList>:<HomePage />} />
         {/* <Route path='/logout' element={<HomePage></HomePage>} /> */}
         {/* <Route path='' element={} /> */}
          {/* <Route path='' element={} /> */}
