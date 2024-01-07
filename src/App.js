@@ -36,6 +36,8 @@ function App() {
     if (user) {
       setIsAuth(true);
       setUser(user);
+      // setUserInfo(user.id)
+      showUser(user.id)
     } else {
       localStorage.removeItem("token");
       setIsAuth(false);
@@ -65,6 +67,8 @@ function App() {
           console.log(user);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUser(user) : setUser(null);
+          user ? showUser(user.id) : showUser(null)
+          // user ? setUserInfo(user.id) : setUserInfo(null)
         }
       })
       .catch((err) => {
@@ -92,6 +96,7 @@ function App() {
       console.log(response)
       let user = response.data.user
       setCurrentUser(user)
+      setUserInfo(user)
   })
   .catch((err) => {
       console.log(err)
@@ -158,7 +163,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path='/exhibition/index' element={<ExhibitionPage></ExhibitionPage>} />
+          <Route path='/exhibition/index' element={userInfo&&<ExhibitionPage user={userInfo}></ExhibitionPage>} />
           <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
           />
           <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />
@@ -178,6 +183,10 @@ function App() {
           {/* <Route path='' element={} /> */}
         </Routes>
       </div>
+      {userInfo && console.log("user info", userInfo)}
+      {currentUser && console.log("cu",currentUser)}
+
+
       <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
         <div className="container">
           <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>

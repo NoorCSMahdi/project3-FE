@@ -49,6 +49,7 @@ function ExhibitionCarsPage(props) {
     .then(res=>{
       console.log("exhibition deleted");
       console.log(res);
+      navigate('/')
     })
     .catch(err=>{
       console.log("error deleting exhibition",err);
@@ -58,6 +59,7 @@ function ExhibitionCarsPage(props) {
   return (
     <div className="container">
        <div className="d-flex justify-content-start mb-3">
+        <button onClick={()=>deleteExhibition(exhibitionId)}>Delete Exibition</button>
         <Link to={'/exhibition/detail/'+exhibitionId} className="btn btn-secondary">Exhibition Details</Link>
       </div>
       <div className="d-flex justify-content-end mb-3">
