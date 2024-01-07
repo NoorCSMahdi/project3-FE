@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Axios from 'axios';
 import Map from '../forms/Map';
+import { useNavigate } from 'react-router-dom'
+
 
 export default function EditExhibitionForm(props) {
   const [editExhibition, setEditExhibition] = useState(props.editExhibition);
@@ -9,6 +11,8 @@ export default function EditExhibitionForm(props) {
   const autocompleteRef = useRef(null);
   const [file, setFile] = useState(props.editExhibition.exhibition_image);
   const [imageName, setImageName] = useState(null);
+  const navigate = useNavigate();
+
 
   const successCallback = (position) => {
     console.log("coor",position.coords);
@@ -90,6 +94,8 @@ export default function EditExhibitionForm(props) {
     .then(res=>{
       console.log(res);
       console.log("success");
+      props.isEdit(false);
+      navigate("/exhibition/index");
     })
     .catch(err=>{
       console.log(err);
