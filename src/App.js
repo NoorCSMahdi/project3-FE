@@ -164,7 +164,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
           <Route path='/exhibition/index' element={userInfo&&<ExhibitionPage user={userInfo}></ExhibitionPage>} />
-          <Route path="/exhibition/cars/:id" element={<ExhibitionCarsPage setHeaders={setHeaders}></ExhibitionCarsPage>}
+          <Route path="/exhibition/cars/:id" element={userInfo&&<ExhibitionCarsPage setHeaders={setHeaders} user={userInfo}></ExhibitionCarsPage>}
           />
           <Route path="/exhibition/detail/:id" element={<ExhibitionDetails></ExhibitionDetails>} />
           <Route path="car/edit/:id" element={<EditCars/>} />
