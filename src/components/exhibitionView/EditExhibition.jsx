@@ -114,7 +114,7 @@ export default function EditExhibitionForm(props) {
   return (
     <div className="container">
       <div className="mb-4">
-        <h2>Create Your Exhibition</h2>
+        <h2>Edit Your Exhibition</h2>
         <p>A Chance To Display Your Exhibition!</p>
       </div>
 
@@ -187,7 +187,7 @@ export default function EditExhibitionForm(props) {
   />
 </div>
 
-<div className="mb-3">
+{/* <div className="mb-3">
   <label htmlFor="working_days" className="form-label">
     Working Days:
   </label>
@@ -199,7 +199,7 @@ export default function EditExhibitionForm(props) {
     onChange={handleChange}
     value={editExhibition.working_days}
   />
-</div>
+</div> */}
 
         <div className="mb-3">
           <label htmlFor="exhibition_location" className="form-label">
@@ -213,7 +213,7 @@ export default function EditExhibitionForm(props) {
         {/* Rest of the form fields */}
 
         <div className="mb-3">
-          <input type="submit" value="edit Exhibition" className="btn btn-primary" />
+          <input type="submit" value="Edit Exhibition" className="btn btn-primary" />
         </div>
       </form>
     </div>

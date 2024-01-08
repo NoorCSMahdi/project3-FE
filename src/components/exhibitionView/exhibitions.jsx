@@ -48,13 +48,13 @@ function ExhibitionPage(props) {
           <div key={exhibition._id} className="col mb-4">
             {/* <button onClick={()=>editExhibitionFun(exhibition._id)}>Edit </button> */}
             <div className="card">
-             {props.user && (props.user.userType=="SubAdmin" ||props.user.userType=="Admin") ? <button onClick={()=>editExhibitionFun(exhibition._id)}>edit</button>:""}
               <Link to={"/exhibition/cars/"+exhibition._id} > {/* Add the Link component */}
                 <img src={exhibition.exhibition_image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={exhibition.exhibition_name} />
               </Link>
               <div className="card-body">
                 <h2 className="card-title">{exhibition.exhibition_name}</h2>
                 <p className="card-text">{exhibition.exhibition_description}</p>
+             {props.user && (props.user.userType=="SubAdmin" ||props.user.userType=="Admin") ? <button className='btn btn-primary' onClick={()=>editExhibitionFun(exhibition._id)}>Edit</button>:""}
               </div>
             </div>
           </div>
